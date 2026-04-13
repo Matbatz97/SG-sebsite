@@ -236,6 +236,7 @@
     (function () {
       const el = document.getElementById('typingAccent');
       if (!el) return;
+      if (window.innerWidth < 768) { el.textContent = 'Unmissable.'; el.classList.add('typing-done'); return; }
       const text = 'Unmissable.';
       const typeSpeed = 80;
       const deleteSpeed = 40;
@@ -277,6 +278,7 @@
     (function () {
       const el = document.getElementById('typingServicesHeading');
       if (!el) return;
+      if (window.innerWidth < 768) { el.textContent = 'Services'; el.classList.add('typing-done'); return; }
       const text = 'Services';
       const typeSpeed = 90;
       const deleteSpeed = 45;
@@ -316,7 +318,7 @@
             typeOut();
           }
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.05 });
 
       obs.observe(document.getElementById('services'));
     })();
@@ -363,6 +365,7 @@
     (function () {
       const el = document.getElementById('typingReviews');
       if (!el) return;
+      if (window.innerWidth < 768) { el.innerHTML = `Don't Take Our <span class="accent">Word For It</span>`; return; }
       const fullText   = "Don't Take Our Word For It";
       const plainPart  = "Don't Take Our ";
       const accentPart = "Word For It";
@@ -408,7 +411,7 @@
             typeOut();
           }
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.05 });
 
       obs.observe(document.getElementById('testimonials'));
     })();
