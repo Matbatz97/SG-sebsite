@@ -40,7 +40,7 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--black);
+      background: #000;
       color: var(--white);
       font-family: var(--font-body);
       overflow-x: hidden;
@@ -250,6 +250,26 @@
       color: var(--green);
       display: block;
       text-shadow: 0 0 40px rgba(61,255,0,0.4);
+    }
+
+    .hero-title .accent::after {
+      content: '|';
+      color: var(--green);
+      animation: cursorBlink 0.7s step-end infinite;
+      margin-left: 2px;
+    }
+
+    .hero-title .accent.typing-done::after {
+      animation: cursorFade 1s ease forwards 1.5s;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes cursorFade {
+      to { opacity: 0; }
     }
 
     .hero-sub {
@@ -462,7 +482,7 @@
     }
 
     /* ─── SERVICES ───────────────────────────────────────────────── */
-    #services { background: var(--dark); }
+    #services { background: rgba(11,11,11,0.82); }
 
     .services-header {
       display: flex;
@@ -637,8 +657,9 @@
 
     .about-tag {
       position: absolute;
-      bottom: -16px;
-      right: -16px;
+      bottom: 0;
+      right: 0;
+      z-index: 3;
       background: var(--green);
       color: var(--black);
       padding: 16px 24px;
@@ -686,7 +707,7 @@
 
     /* ─── PROCESS ────────────────────────────────────────────────── */
     #process {
-      background: var(--dark);
+      background: rgba(11,11,11,0.82);
       text-align: center;
     }
 
@@ -873,7 +894,7 @@
 
     /* ─── CONTACT ────────────────────────────────────────────────── */
     #contact {
-      background: var(--dark);
+      background: rgba(11,11,11,0.82);
     }
 
     .contact-grid {
@@ -995,7 +1016,7 @@
 
     /* ─── FOOTER ─────────────────────────────────────────────────── */
     footer {
-      background: var(--black);
+      background: rgba(0,0,0,0.85);
       border-top: 1px solid rgba(61,255,0,0.1);
       padding: 48px 5vw 32px;
     }
@@ -1167,7 +1188,7 @@
       /* About */
       #about { padding: 64px 5vw; }
       .about-features { grid-template-columns: 1fr 1fr; }
-      .about-tag { bottom: -12px; right: -8px; font-size: 0.75rem; padding: 12px 16px; }
+      .about-tag { bottom: 0; right: 0; font-size: 0.75rem; padding: 12px 16px; }
 
       /* Process */
       .process-steps { grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -1455,7 +1476,7 @@
     }
 
     /* ─── TESTIMONIALS ───────────────────────────────────────────── */
-    #testimonials { background: var(--dark); }
+    #testimonials { background: rgba(11,11,11,0.82); }
 
     .testimonials-grid {
       display: grid;
@@ -1772,7 +1793,13 @@
     <div class="intro-bar-wrap"><div class="intro-bar"></div></div>
   </div>
 
-  <canvas id="starfield" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+  <!-- ── BG VIDEO ──────────────────────────────────────────────────── -->
+  <video id="bgVideo" autoplay muted loop playsinline
+    style="position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.07;pointer-events:none;">
+    <source src="8F56EF70-A836-48FE-B571-3D174569B0BE.mov" type="video/mp4" />
+  </video>
+
+  <canvas id="starfield" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
 
   <!-- ── NAV ─────────────────────────────────────────────────────── -->
   <nav>
@@ -1811,7 +1838,7 @@
       <h1 class="hero-title">
         Make Your<br />
         Brand<br />
-        <span class="accent">Unmissable.</span>
+        <span class="accent" id="typingAccent"></span>
       </h1>
       <p class="hero-sub">
         From vehicle wraps and sign-writing to signages and banners —
@@ -2022,8 +2049,8 @@
             <p class="video-play-label">Push me to wrap!</p>
           </div>
         </div>
+        <div class="about-tag">Est. 2023</div>
       </div>
-      <div class="about-tag">Est. 2023</div>
     </div>
     <div class="about-content reveal" style="transition-delay:0.15s">
       <div class="section-tag">Who We Are</div>
@@ -2453,6 +2480,47 @@
     (function () {
       const intro = document.getElementById('intro');
       setTimeout(() => intro.classList.add('hidden'), 2200);
+    })();
+
+    // ── Typing effect on hero accent ──────────────────────────────
+    (function () {
+      const el = document.getElementById('typingAccent');
+      if (!el) return;
+      const text = 'Unmissable.';
+      const typeSpeed = 80;
+      const deleteSpeed = 40;
+      const pauseAfterType = 2000;
+      const pauseAfterDelete = 400;
+
+      function typeOut() {
+        let i = 0;
+        el.classList.remove('typing-done');
+        el.textContent = '';
+        (function addChar() {
+          el.textContent = text.slice(0, ++i);
+          if (i < text.length) {
+            setTimeout(addChar, typeSpeed);
+          } else {
+            el.classList.add('typing-done');
+            setTimeout(deleteOut, pauseAfterType);
+          }
+        })();
+      }
+
+      function deleteOut() {
+        let i = el.textContent.length;
+        el.classList.remove('typing-done');
+        (function removeChar() {
+          el.textContent = text.slice(0, --i);
+          if (i > 0) {
+            setTimeout(removeChar, deleteSpeed);
+          } else {
+            setTimeout(typeOut, pauseAfterDelete);
+          }
+        })();
+      }
+
+      setTimeout(typeOut, 2400);
     })();
 
     // ── Animated stat counters ────────────────────────────────────
