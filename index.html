@@ -1273,6 +1273,72 @@
       50% { opacity: 0.2; transform: translateX(-50%) translateY(6px); }
     }
 
+    /* ─── VIDEO PLAY OVERLAY ─────────────────────────────────────── */
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: opacity 0.5s ease;
+      cursor: pointer;
+    }
+
+    .video-play-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .video-play-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .video-play-btn {
+      width: 68px;
+      height: 68px;
+      border: 2px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      background: rgba(61,255,0,0.1);
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 0 24px rgba(61,255,0,0.35);
+      animation: pulseBorder 2s ease-in-out infinite;
+    }
+
+    .video-play-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--green);
+      margin-left: 4px;
+    }
+
+    .video-play-overlay:hover .video-play-btn {
+      background: rgba(61,255,0,0.25);
+      transform: scale(1.08);
+    }
+
+    .video-play-label {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px rgba(61,255,0,0.5);
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% { box-shadow: 0 0 16px rgba(61,255,0,0.3); }
+      50%       { box-shadow: 0 0 36px rgba(61,255,0,0.7); }
+    }
+
     /* ─── SCROLL REVEAL ──────────────────────────────────────────── */
     .reveal {
       opacity: 0;
@@ -1520,7 +1586,7 @@
   <!-- ── ABOUT ──────────────────────────────────────────────────────── -->
   <section id="about">
     <div class="about-visual reveal">
-      <div class="about-img-wrap">
+      <div class="about-img-wrap" id="videoWrap">
         <video
           id="aboutVideo"
           src="hf_20260412_205257_811af063-8916-4867-b09b-a53bddb12ede.mp4"
@@ -1529,6 +1595,14 @@
           preload="auto"
           style="width:100%;height:100%;object-fit:cover;display:block;"
         ></video>
+        <div class="video-play-overlay" id="videoPlayOverlay">
+          <div class="video-play-inner">
+            <div class="video-play-btn" id="videoPlayBtn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <p class="video-play-label">Push me to wrap!</p>
+          </div>
+        </div>
       </div>
       <div class="about-tag">Est. 2023</div>
     </div>
@@ -1905,67 +1979,28 @@
       }
     })();
 
-    // ── About section video — smooth mouse scrub (left → right) ──
+    // ── About section video — click to play ──────────────────────
     (function () {
-      const wrap       = document.querySelector('.about-img-wrap');
+      const overlay    = document.getElementById('videoPlayOverlay');
       const aboutVideo = document.getElementById('aboutVideo');
 
-      if (!wrap || !aboutVideo) return;
+      if (!overlay || !aboutVideo) return;
 
-      let targetPct  = 0;   // where the mouse is pointing (0–1)
-      let currentPct = 0;   // smoothed position (0–1)
-      let rafId      = null;
-      let isHovering = false;
-      const LERP     = 0.08; // lower = smoother/slower, higher = snappier
-
+      // Ensure starts at frame 0
       aboutVideo.addEventListener('loadedmetadata', () => {
         aboutVideo.currentTime = 0;
       });
       if (aboutVideo.readyState >= 1) aboutVideo.currentTime = 0;
 
-      function tick() {
-        if (!aboutVideo.duration) { rafId = requestAnimationFrame(tick); return; }
+      overlay.addEventListener('click', () => {
+        overlay.classList.add('hidden');
+        aboutVideo.play();
+      });
 
-        // Lerp toward target
-        currentPct += (targetPct - currentPct) * LERP;
-
-        // Only seek if meaningfully different (avoids redundant seek calls)
-        const newTime = currentPct * aboutVideo.duration;
-        if (Math.abs(newTime - aboutVideo.currentTime) > 0.01) {
-          aboutVideo.currentTime = newTime;
-        }
-
-        // Keep ticking while hovering or still catching up
-        if (isHovering || Math.abs(targetPct - currentPct) > 0.001) {
-          rafId = requestAnimationFrame(tick);
-        } else {
-          rafId = null;
-        }
-      }
-
-      function startTick() {
-        if (!rafId) rafId = requestAnimationFrame(tick);
-      }
-
-      function onMouseMove(e) {
-        const rect = wrap.getBoundingClientRect();
-        targetPct  = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
-        startTick();
-      }
-
-      function onTouchMove(e) {
-        const rect = wrap.getBoundingClientRect();
-        targetPct  = Math.min(Math.max((e.touches[0].clientX - rect.left) / rect.width, 0), 1);
-        startTick();
-      }
-
-      wrap.addEventListener('mouseenter', () => { isHovering = true; });
-      wrap.addEventListener('mousemove',  onMouseMove);
-      wrap.addEventListener('touchmove',  onTouchMove, { passive: true });
-      wrap.addEventListener('mouseleave', () => {
-        isHovering = false;
-        targetPct  = 0;
-        startTick();
+      // Show overlay again when video ends
+      aboutVideo.addEventListener('ended', () => {
+        aboutVideo.currentTime = 0;
+        overlay.classList.remove('hidden');
       });
     })();
 
