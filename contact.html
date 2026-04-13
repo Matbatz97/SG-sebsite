@@ -95,28 +95,31 @@
         </div>
       </div>
 
-      <form class="contact-form reveal" style="transition-delay:0.15s" onsubmit="handleSubmit(event)" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="contact-form reveal" style="transition-delay:0.15s" onsubmit="handleSubmit(event)" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f4a4df96-09be-4702-975e-a549995a07ec" />
+        <input type="hidden" name="subject" value="New Enquiry — StudioGraphic" />
+        <input type="hidden" name="redirect" value="false" />
         <div class="form-row">
           <div class="form-group">
             <label for="fname">First Name</label>
-            <input type="text" id="fname" placeholder="John" required />
+            <input type="text" id="fname" name="First Name" placeholder="John" required />
           </div>
           <div class="form-group">
             <label for="lname">Last Name</label>
-            <input type="text" id="lname" placeholder="Smith" required />
+            <input type="text" id="lname" name="Last Name" placeholder="Smith" required />
           </div>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="john@example.com" required />
+          <input type="email" id="email" name="Email" placeholder="john@example.com" required />
         </div>
         <div class="form-group">
           <label for="phone">Phone</label>
-          <input type="tel" id="phone" placeholder="07700 000000" />
+          <input type="tel" id="phone" name="Phone" placeholder="07700 000000" />
         </div>
         <div class="form-group">
           <label for="service">Service Required</label>
-          <select id="service">
+          <select id="service" name="Service Required">
             <option value="">Select a service...</option>
             <option>Printed Vehicle Wrap</option>
             <option>Sign Writing</option>
@@ -131,7 +134,7 @@
         </div>
         <div class="form-group">
           <label for="message">Tell us about your project</label>
-          <textarea id="message" placeholder="Vehicle type, quantity, design brief, deadline..."></textarea>
+          <textarea id="message" name="Message" placeholder="Vehicle type, quantity, design brief, deadline..."></textarea>
         </div>
         <div class="form-submit">
           <button type="submit" class="btn-primary" style="width:100%;text-align:center;animation:none;">
