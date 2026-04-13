@@ -1,3 +1,67 @@
+    // ── Content Renderer ──────────────────────────────────────────
+    // Reads from content.js (SG object) and populates the page.
+    (function () {
+      if (typeof SG === 'undefined') return;
+
+      // Gallery
+      document.querySelectorAll('.gallery-grid').forEach(function (grid) {
+        grid.innerHTML = SG.gallery.map(function (item, i) {
+          const delay = i === 0 ? '' : ` style="transition-delay:${(i * 0.05).toFixed(2)}s"`;
+          return `<div class="gallery-item reveal"${delay}>
+            <img loading="lazy" src="${item.src}" alt="${item.alt}" />
+            <div class="gallery-overlay"><span class="gallery-label">${item.label}</span></div>
+          </div>`;
+        }).join('');
+      });
+
+      // Testimonials
+      document.querySelectorAll('.testimonials-grid').forEach(function (grid) {
+        grid.innerHTML = SG.testimonials.map(function (t, i) {
+          const delay = i === 0 ? '' : ` style="transition-delay:${(i * 0.1).toFixed(1)}s"`;
+          const company = t.company ? `<div class="testimonial-company">${t.company}</div>` : '';
+          return `<div class="testimonial-card reveal"${delay}>
+            <div class="testimonial-stars">★★★★★</div>
+            <div class="testimonial-quote">"</div>
+            <p class="testimonial-text">${t.text}</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">${t.initials}</div>
+              <div><div class="testimonial-name">${t.name}</div>${company}</div>
+            </div>
+          </div>`;
+        }).join('');
+      });
+
+      // Stats
+      const statItems = document.querySelectorAll('.stat-item');
+      SG.stats.forEach(function (s, i) {
+        if (!statItems[i]) return;
+        const num = statItems[i].querySelector('.stat-num');
+        const label = statItems[i].querySelector('.stat-label');
+        if (num) { num.dataset.count = s.count; num.dataset.suffix = s.suffix; num.textContent = '0' + s.suffix; }
+        if (label) label.textContent = s.label;
+      });
+
+      // Business info — contact page details
+      const phoneEl   = document.getElementById('sg-phone');
+      const emailEl   = document.getElementById('sg-email');
+      const addressEl = document.getElementById('sg-address');
+      if (phoneEl)   phoneEl.textContent   = SG.business.phoneDisplay;
+      if (emailEl)   emailEl.textContent   = SG.business.email;
+      if (addressEl) addressEl.textContent = SG.business.address;
+
+      // Float buttons
+      document.querySelectorAll('a.float-btn.whatsapp').forEach(function (a) {
+        a.href = `https://wa.me/${SG.business.whatsapp}?text=${encodeURIComponent("Hi, I'd like to get a quote from StudioGraphic.")}`;
+      });
+      document.querySelectorAll('a.float-btn.call').forEach(function (a) {
+        a.href = `tel:${SG.business.phone}`;
+      });
+
+      // Social links
+      document.querySelectorAll('a[data-social="instagram"]').forEach(function (a) { a.href = SG.business.instagram; });
+      document.querySelectorAll('a[data-social="facebook"]').forEach(function (a) { a.href = SG.business.facebook; });
+    })();
+
     // ── Starfield ─────────────────────────────────────────────────
     (function () {
       const canvas = document.getElementById('starfield');
