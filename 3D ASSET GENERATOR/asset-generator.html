@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Asset Generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex; height: 100vh;
+      font-family: system-ui, sans-serif;
+      background: #0d0d1a; color: #e0e0ff; overflow: hidden;
+    }
+
+    /* ── LEFT PANEL ── */
+    #controls {
+      width: 320px; min-width: 260px;
+      background: #1a1a2e; border-right: 1px solid #2a2a4a;
+      padding: 16px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    #controls h1 {
+      font-size: 15px; font-weight: 700;
+      color: #e0e0ff; letter-spacing: .04em;
+    }
+
+    .section-title {
+      font-size: 11px; text-transform: uppercase;
+      letter-spacing: .1em; color: #6666aa;
+      padding-bottom: 6px; border-bottom: 1px solid #2a2a4a;
+    }
+
+    label {
+      font-size: 12px; color: #aaaacc;
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 4px;
+    }
+
+    .value-display { color: #8888ff; font-size: 11px; font-variant-numeric: tabular-nums; }
+
+    input[type=range] {
+      width: 100%; accent-color: #5555ff; cursor: pointer;
+    }
+
+    select {
+      width: 100%; padding: 7px 8px;
+      background: #12122a; border: 1px solid #3a3a5a;
+      border-radius: 5px; color: #e0e0ff; font-size: 13px; cursor: pointer;
+    }
+
+    input[type=color] {
+      width: 100%; height: 34px; border: 1px solid #3a3a5a;
+      border-radius: 5px; background: #12122a; cursor: pointer; padding: 2px;
+    }
+
+    .checkbox-row {
+      display: flex; align-items: center; gap: 8px; cursor: pointer;
+    }
+    .checkbox-row input { accent-color: #5555ff; width: 14px; height: 14px; cursor: pointer; }
+    .checkbox-row span { font-size: 12px; color: #aaaacc; }
+
+    button {
+      width: 100%; padding: 9px; background: #3a3aff;
+      border: none; border-radius: 5px; color: #fff;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background .15s, transform .08s;
+    }
+    button:hover { background: #5555ff; }
+    button:active { transform: scale(.97); }
+
+    .btn-secondary {
+      background: #1e1e40; border: 1px solid #3a3a6a; color: #aaaaff;
+    }
+    .btn-secondary:hover { background: #2a2a50; }
+
+    .export-row { display: flex; gap: 8px; }
+    .export-row button { flex: 1; font-size: 11px; padding: 7px; }
+
+    .divider { height: 1px; background: #2a2a4a; }
+
+    /* ── RIGHT PANEL / VIEWPORT ── */
+    #viewport { flex: 1; position: relative; background: #0d0d1a; }
+    #viewport canvas { display: block; width: 100% !important; height: 100% !important; }
+
+    #viewport-label {
+      position: absolute; bottom: 12px; right: 14px;
+      font-size: 10px; color: #444466; pointer-events: none; letter-spacing: .06em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ LEFT PANEL ══════════════ -->
+<div id="controls">
+  <h1>3D Asset Generator</h1>
+
+  <!-- Shape -->
+  <div>
+    <p class="section-title">Shape</p>
+    <label>Geometry</label>
+    <select id="shape">
+      <option value="box">Box</option>
+      <option value="sphere">Sphere</option>
+      <option value="torus" selected>Torus</option>
+      <option value="torusknot">Torus Knot</option>
+      <option value="cylinder">Cylinder</option>
+      <option value="cone">Cone</option>
+      <option value="icosahedron">Icosahedron</option>
+      <option value="octahedron">Octahedron</option>
+      <option value="tetrahedron">Tetrahedron</option>
+      <option value="lathe">Lathe (Vase)</option>
+    </select>
+  </div>
+
+  <!-- Dimensions -->
+  <div>
+    <p class="section-title">Dimensions</p>
+
+    <label>Radius / Width <span class="value-display" id="v-radius">1.5</span></label>
+    <input type="range" id="p-radius" min="0.2" max="4" step="0.05" value="1.5">
+
+    <label style="margin-top:10px">Tube / Height <span class="value-display" id="v-tube">0.5</span></label>
+    <input type="range" id="p-tube" min="0.05" max="2.5" step="0.05" value="0.5">
+
+    <label style="margin-top:10px">Segments <span class="value-display" id="v-segs">48</span></label>
+    <input type="range" id="p-segs" min="3" max="128" step="1" value="48">
+
+    <label style="margin-top:10px">Detail / P <span class="value-display" id="v-detail">2</span></label>
+    <input type="range" id="p-detail" min="0" max="8" step="1" value="2">
+
+    <label style="margin-top:10px">Q (knot) <span class="value-display" id="v-q">3</span></label>
+    <input type="range" id="p-q" min="1" max="8" step="1" value="3">
+  </div>
+
+  <!-- Material -->
+  <div>
+    <p class="section-title">Material</p>
+
+    <label>Type</label>
+    <select id="mat-type">
+      <option value="standard" selected>Standard (PBR)</option>
+      <option value="normal">Normal Map</option>
+      <option value="toon">Toon</option>
+      <option value="phong">Phong</option>
+      <option value="depth">Depth</option>
+    </select>
+
+    <label style="margin-top:10px">Color</label>
+    <input type="color" id="mat-color" value="#5566ff">
+
+    <label style="margin-top:10px">Metalness <span class="value-display" id="v-metal">0.3</span></label>
+    <input type="range" id="p-metal" min="0" max="1" step="0.01" value="0.3">
+
+    <label style="margin-top:10px">Roughness <span class="value-display" id="v-rough">0.4</span></label>
+    <input type="range" id="p-rough" min="0" max="1" step="0.01" value="0.4">
+
+    <label style="margin-top:10px">Opacity <span class="value-display" id="v-opacity">1.0</span></label>
+    <input type="range" id="p-opacity" min="0.05" max="1" step="0.01" value="1.0">
+  </div>
+
+  <!-- Display -->
+  <div>
+    <p class="section-title">Display</p>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="chk-wireframe">
+      <span>Wireframe overlay</span>
+    </label>
+
+    <label class="checkbox-row" style="margin-top:8px">
+      <input type="checkbox" id="chk-rotate" checked>
+      <span>Auto-rotate</span>
+    </label>
+
+    <label class="checkbox-row" style="margin-top:8px">
+      <input type="checkbox" id="chk-grid" checked>
+      <span>Grid helper</span>
+    </label>
+
+    <label class="checkbox-row" style="margin-top:8px">
+      <input type="checkbox" id="chk-axes">
+      <span>Axes helper</span>
+    </label>
+
+    <label style="margin-top:10px">Env light intensity <span class="value-display" id="v-light">2.0</span></label>
+    <input type="range" id="p-light" min="0" max="6" step="0.1" value="2.0">
+
+    <label style="margin-top:10px">Background</label>
+    <input type="color" id="bg-color" value="#0d0d1a">
+  </div>
+
+  <!-- Animation -->
+  <div>
+    <p class="section-title">Animation</p>
+    <label>Rotation speed X <span class="value-display" id="v-rotx">0.0</span></label>
+    <input type="range" id="p-rotx" min="-3" max="3" step="0.05" value="0">
+
+    <label style="margin-top:10px">Rotation speed Y <span class="value-display" id="v-roty">0.5</span></label>
+    <input type="range" id="p-roty" min="-3" max="3" step="0.05" value="0.5">
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Export -->
+  <div>
+    <p class="section-title">Export</p>
+    <div class="export-row">
+      <button id="btn-stl">Export STL</button>
+      <button id="btn-obj">Export OBJ</button>
+    </div>
+    <button id="btn-screenshot" class="btn-secondary" style="margin-top:8px">
+      Screenshot PNG
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════ RIGHT PANEL ══════════════ -->
+<div id="viewport">
+  <span id="viewport-label">Drag to orbit · Scroll to zoom · Right-drag to pan</span>
+</div>
+
+<!-- ── Three.js ── -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.163.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.163.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls }  from 'three/addons/controls/OrbitControls.js';
+import { STLExporter }    from 'three/addons/exporters/STLExporter.js';
+
+// ── Renderer ──────────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(devicePixelRatio);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById('viewport').appendChild(renderer.domElement);
+
+// ── Scene ─────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d0d1a);
+scene.fog = new THREE.FogExp2(0x0d0d1a, 0.025);
+
+const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 500);
+camera.position.set(4, 3, 5);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+
+// ── Lights ────────────────────────────────────────────────────
+const ambient = new THREE.AmbientLight(0x334466, 2);
+scene.add(ambient);
+
+const sun = new THREE.DirectionalLight(0xffffff, 3);
+sun.position.set(5, 10, 5);
+sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024);
+scene.add(sun);
+
+const fill = new THREE.DirectionalLight(0x4444bb, 1.2);
+fill.position.set(-4, -2, -4);
+scene.add(fill);
+
+// ── Helpers ───────────────────────────────────────────────────
+const gridHelper = new THREE.GridHelper(20, 20, 0x222244, 0x1e1e3a);
+scene.add(gridHelper);
+
+const axesHelper = new THREE.AxesHelper(2);
+axesHelper.visible = false;
+scene.add(axesHelper);
+
+// ── Mesh state ────────────────────────────────────────────────
+let mesh = null;
+let wireMesh = null;
+
+function getParams() {
+  return {
+    shape:    document.getElementById('shape').value,
+    radius:   +document.getElementById('p-radius').value,
+    tube:     +document.getElementById('p-tube').value,
+    segs:     +document.getElementById('p-segs').value,
+    detail:   +document.getElementById('p-detail').value,
+    q:        +document.getElementById('p-q').value,
+    matType:  document.getElementById('mat-type').value,
+    color:    document.getElementById('mat-color').value,
+    metal:    +document.getElementById('p-metal').value,
+    rough:    +document.getElementById('p-rough').value,
+    opacity:  +document.getElementById('p-opacity').value,
+    wireframe:document.getElementById('chk-wireframe').checked,
+  };
+}
+
+function buildGeometry(p) {
+  const s = Math.round(p.segs);
+  switch (p.shape) {
+    case 'box':
+      return new THREE.BoxGeometry(p.radius*2, p.tube*2 || p.radius*2, p.radius*2, s > 32 ? s>>2 : 1);
+    case 'sphere':
+      return new THREE.SphereGeometry(p.radius, s, Math.max(8, s >> 1));
+    case 'torus':
+      return new THREE.TorusGeometry(p.radius, Math.min(p.tube, p.radius * 0.9), 24, s);
+    case 'torusknot':
+      return new THREE.TorusKnotGeometry(p.radius, Math.min(p.tube, p.radius * 0.5), s*2, 16, p.detail || 2, p.q || 3);
+    case 'cylinder':
+      return new THREE.CylinderGeometry(p.radius, p.radius * 0.8, p.tube * 3, s);
+    case 'cone':
+      return new THREE.ConeGeometry(p.radius, p.tube * 3, s);
+    case 'icosahedron':
+      return new THREE.IcosahedronGeometry(p.radius, p.detail);
+    case 'octahedron':
+      return new THREE.OctahedronGeometry(p.radius, p.detail);
+    case 'tetrahedron':
+      return new THREE.TetrahedronGeometry(p.radius, p.detail);
+    case 'lathe': {
+      const pts = [];
+      for (let i = 0; i <= 20; i++) {
+        const t = i / 20;
+        const x = Math.sin(t * Math.PI) * p.radius * (0.5 + 0.5 * Math.sin(t * Math.PI * 3)) + 0.1;
+        const y = (t - 0.5) * p.tube * 4;
+        pts.push(new THREE.Vector2(x, y));
+      }
+      return new THREE.LatheGeometry(pts, s);
+    }
+    default:
+      return new THREE.SphereGeometry(p.radius, s, Math.max(8, s >> 1));
+  }
+}
+
+function buildMaterial(p) {
+  const color = new THREE.Color(p.color);
+  const transparent = p.opacity < 1;
+  switch (p.matType) {
+    case 'normal':
+      return new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });
+    case 'toon':
+      return new THREE.MeshToonMaterial({ color, transparent, opacity: p.opacity });
+    case 'phong':
+      return new THREE.MeshPhongMaterial({ color, shininess: 80, transparent, opacity: p.opacity });
+    case 'depth':
+      return new THREE.MeshDepthMaterial();
+    default:
+      return new THREE.MeshStandardMaterial({
+        color, metalness: p.metal, roughness: p.rough,
+        transparent, opacity: p.opacity, side: THREE.DoubleSide
+      });
+  }
+}
+
+function rebuildMesh() {
+  if (mesh) { mesh.geometry.dispose(); mesh.material.dispose(); scene.remove(mesh); }
+  if (wireMesh) { wireMesh.geometry.dispose(); wireMesh.material.dispose(); scene.remove(wireMesh); }
+
+  const p = getParams();
+  const geo = buildGeometry(p);
+  const mat = buildMaterial(p);
+
+  mesh = new THREE.Mesh(geo, mat);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  scene.add(mesh);
+
+  if (p.wireframe) {
+    const wireMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, opacity: 0.12, transparent: true });
+    wireMesh = new THREE.Mesh(geo, wireMat);
+    scene.add(wireMesh);
+  }
+}
+
+rebuildMesh();
+
+// ── Bind controls ─────────────────────────────────────────────
+function bindSlider(id, displayId, rebuild = true) {
+  const el = document.getElementById(id);
+  const disp = document.getElementById(displayId);
+  el.addEventListener('input', () => {
+    disp.textContent = (+el.value).toFixed(el.step.includes('.') ? (el.step.split('.')[1].length) : 0);
+    if (rebuild) rebuildMesh();
+  });
+}
+
+bindSlider('p-radius', 'v-radius');
+bindSlider('p-tube',   'v-tube');
+bindSlider('p-segs',   'v-segs');
+bindSlider('p-detail', 'v-detail');
+bindSlider('p-q',      'v-q');
+bindSlider('p-metal',  'v-metal');
+bindSlider('p-rough',  'v-rough');
+bindSlider('p-opacity','v-opacity');
+
+document.getElementById('shape').addEventListener('change', rebuildMesh);
+document.getElementById('mat-type').addEventListener('change', rebuildMesh);
+document.getElementById('mat-color').addEventListener('input', rebuildMesh);
+document.getElementById('chk-wireframe').addEventListener('change', rebuildMesh);
+
+// Light intensity
+const lightSlider = document.getElementById('p-light');
+lightSlider.addEventListener('input', () => {
+  const v = +lightSlider.value;
+  document.getElementById('v-light').textContent = v.toFixed(1);
+  ambient.intensity = v;
+});
+
+// Background
+document.getElementById('bg-color').addEventListener('input', e => {
+  const c = new THREE.Color(e.target.value);
+  scene.background = c;
+  scene.fog = new THREE.FogExp2(c, 0.025);
+});
+
+// Helpers toggles
+document.getElementById('chk-grid').addEventListener('change', e => { gridHelper.visible = e.target.checked; });
+document.getElementById('chk-axes').addEventListener('change', e => { axesHelper.visible = e.target.checked; });
+
+// Rotation speeds
+const rotxSlider = document.getElementById('p-rotx');
+const rotySlider = document.getElementById('p-roty');
+rotxSlider.addEventListener('input', () => { document.getElementById('v-rotx').textContent = (+rotxSlider.value).toFixed(2); });
+rotySlider.addEventListener('input', () => { document.getElementById('v-roty').textContent = (+rotySlider.value).toFixed(2); });
+
+// ── Export ────────────────────────────────────────────────────
+document.getElementById('btn-stl').addEventListener('click', () => {
+  if (!mesh) return;
+  const str = new STLExporter().parse(mesh);
+  download(new Blob([str], { type: 'text/plain' }), 'asset.stl');
+});
+
+document.getElementById('btn-obj').addEventListener('click', () => {
+  if (!mesh) return;
+  const geo = mesh.geometry.toNonIndexed();
+  const pos = geo.attributes.position;
+  let obj = '# OBJ exported from 3D Asset Generator\n';
+  for (let i = 0; i < pos.count; i++) obj += `v ${pos.getX(i).toFixed(6)} ${pos.getY(i).toFixed(6)} ${pos.getZ(i).toFixed(6)}\n`;
+  for (let i = 0; i < pos.count; i += 3) obj += `f ${i+1} ${i+2} ${i+3}\n`;
+  download(new Blob([obj], { type: 'text/plain' }), 'asset.obj');
+});
+
+document.getElementById('btn-screenshot').addEventListener('click', () => {
+  renderer.render(scene, camera);
+  renderer.domElement.toBlob(blob => download(blob, 'screenshot.png'));
+});
+
+function download(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+}
+
+// ── Resize ────────────────────────────────────────────────────
+function resize() {
+  const vp = document.getElementById('viewport');
+  const w = vp.clientWidth, h = vp.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ── Animate ───────────────────────────────────────────────────
+(function loop() {
+  requestAnimationFrame(loop);
+  const autoRotate = document.getElementById('chk-rotate').checked;
+  if (autoRotate && mesh) {
+    mesh.rotation.x += (+rotxSlider.value) * 0.01;
+    mesh.rotation.y += (+rotySlider.value) * 0.01;
+    if (wireMesh) { wireMesh.rotation.copy(mesh.rotation); }
+  }
+  controls.update();
+  renderer.render(scene, camera);
+})();
+</script>
+</body>
+</html>
