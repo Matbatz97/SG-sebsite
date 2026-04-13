@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudioGraphic — Printed Wraps, Signage & Graphics</title>
+  <title>StudioGraphic — Vehicle Wraps, Signage & Graphics | Carlisle</title>
+  <meta name="description" content="StudioGraphic — premium vehicle wraps, sign writing, banners, window graphics, signage, laser cutting and build-up letters. Based in Carlisle, CA1 2GY." />
+  <meta name="keywords" content="vehicle wraps, sign writing, signage, window graphics, banners, laser cutting, build-up letters, Carlisle, StudioGraphic" />
+  <meta property="og:title" content="StudioGraphic — Vehicle Wraps & Signage" />
+  <meta property="og:description" content="Premium vehicle wraps, signage and graphics solutions based in Carlisle." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#3dff00" />
   <style>
     @font-face {
       font-family: 'Eurostile';
@@ -147,6 +153,8 @@
       transform: translateY(-1px);
     }
 
+    .nav-cta { animation: ctaPulse 2.5s ease-in-out infinite; }
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -279,6 +287,13 @@
       background: var(--green-d);
       transform: translateY(-2px);
       box-shadow: 0 8px 30px rgba(61,255,0,0.3);
+    }
+
+    .btn-primary { animation: ctaPulse 2.5s ease-in-out infinite; }
+
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(61,255,0,0.0); }
+      50%       { box-shadow: 0 0 18px 6px rgba(61,255,0,0.35); }
     }
 
     .btn-outline {
@@ -1127,39 +1142,83 @@
     }
 
     @media (max-width: 768px) {
+      /* Nav */
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
 
+      /* Hero */
       .hero-visual { display: none; }
+      #hero { padding-top: 88px; padding-bottom: 60px; min-height: auto; }
+      .hero-title { font-size: clamp(2.4rem, 10vw, 4rem); }
+      .hero-sub { font-size: 0.92rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-outline { text-align: center; width: 100%; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; margin-top: 40px; padding-top: 28px; }
+      .stat-num { font-size: 1.8rem; }
 
-      .hero-stats {
-        gap: 28px;
-        flex-wrap: wrap;
-      }
+      /* Sections */
+      section { padding: 64px 5vw; }
 
-      .about-features {
-        grid-template-columns: 1fr;
-      }
+      /* Services */
+      .services-grid { grid-template-columns: 1fr; gap: 2px; }
+      .services-header { flex-direction: column; align-items: flex-start; }
 
-      .process-steps {
-        grid-template-columns: 1fr 1fr;
-      }
+      /* About */
+      #about { padding: 64px 5vw; }
+      .about-features { grid-template-columns: 1fr 1fr; }
+      .about-tag { bottom: -12px; right: -8px; font-size: 0.75rem; padding: 12px 16px; }
 
+      /* Process */
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .step-num { width: 56px; height: 56px; font-size: 1.3rem; }
+
+      /* Gallery */
       .gallery-grid {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 260px;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 180px;
       }
-
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
       .gallery-item:nth-child(n) { grid-column: span 1; grid-row: span 1; }
 
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      /* Testimonials */
+      .testimonials-grid { grid-template-columns: 1fr; }
 
-      .form-row {
-        grid-template-columns: 1fr;
-      }
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-items { gap: 14px; }
+
+      /* Footer */
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+      .footer-bottom { flex-direction: column; gap: 6px; }
+
+      /* Floating buttons */
+      .float-btns { bottom: 20px; right: 16px; }
+      .float-btn { width: 46px; height: 46px; }
+
+      /* Cookie banner */
+      #cookieBanner { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .cookie-actions { width: 100%; }
+      .cookie-accept, .cookie-decline { flex: 1; text-align: center; }
+
+      /* Intro */
+      .intro-logo { width: 65vw; }
+
+      /* Section titles */
+      .section-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 420px) {
+      .hero-title { font-size: 2.2rem; }
+      .about-features { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .gallery-item:nth-child(1) { grid-column: span 1; }
+      .hero-stats { gap: 16px; }
+      .stat-num { font-size: 1.6rem; }
     }
 
     /* ─── SCROLL VIDEO ───────────────────────────────────────────── */
@@ -1273,6 +1332,348 @@
       50% { opacity: 0.2; transform: translateX(-50%) translateY(6px); }
     }
 
+    /* ─── GDPR COOKIE NOTICE ─────────────────────────────────────── */
+    #cookieBanner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.97);
+      border-top: 1px solid rgba(61,255,0,0.2);
+      padding: 18px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      z-index: 998;
+      transform: translateY(0);
+      transition: transform 0.4s ease;
+    }
+
+    #cookieBanner.hidden { transform: translateY(110%); }
+
+    .cookie-text {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .cookie-text a { color: var(--green); text-decoration: none; }
+
+    .cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+
+    .cookie-accept {
+      background: var(--green);
+      color: var(--black);
+      border: none;
+      padding: 9px 22px;
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+      transition: background 0.2s;
+    }
+
+    .cookie-accept:hover { background: var(--green-d); }
+
+    .cookie-decline {
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 9px 16px;
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .cookie-decline:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    /* ─── INTRO ANIMATION ────────────────────────────────────────── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-logo {
+      width: min(260px, 55vw);
+      animation: introZoom 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+      opacity: 0;
+      filter: drop-shadow(0 0 40px rgba(61,255,0,0.6));
+    }
+
+    @keyframes introZoom {
+      from { opacity: 0; transform: scale(0.75); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .intro-bar-wrap {
+      width: min(220px, 50vw);
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 0.3s 0.5s forwards;
+    }
+
+    .intro-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(61,255,0,0.6);
+      animation: loadBar 1.2s 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+
+    @keyframes loadBar {
+      to { width: 100%; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────────────── */
+    #testimonials { background: var(--dark); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      margin-top: 56px;
+    }
+
+    .testimonial-card {
+      background: var(--dark2);
+      padding: 36px 32px;
+      border: 1px solid rgba(255,255,255,0.04);
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .testimonial-card:hover { border-color: rgba(61,255,0,0.15); }
+
+    .testimonial-quote {
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--green);
+      opacity: 0.3;
+      font-family: Georgia, serif;
+      margin-bottom: 8px;
+    }
+
+    .testimonial-text {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75;
+      margin-bottom: 24px;
+      text-transform: none;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      background: rgba(61,255,0,0.15);
+      border: 1px solid rgba(61,255,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .testimonial-company {
+      font-size: 0.75rem;
+      color: var(--grey);
+      letter-spacing: 0.08em;
+    }
+
+    .testimonial-stars {
+      position: absolute;
+      top: 32px;
+      right: 28px;
+      color: var(--green);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+    }
+
+    /* ─── FLOATING BUTTONS ───────────────────────────────────────── */
+    .float-btns {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 90;
+    }
+
+    .float-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .float-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+
+    .float-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+
+    .float-btn.whatsapp { background: #25D366; }
+    .float-btn.call     { background: var(--green); }
+    .float-btn.call svg { fill: var(--black); }
+
+    .float-btn-label {
+      position: absolute;
+      right: 60px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .float-btn:hover .float-btn-label { opacity: 1; }
+
+    /* ─── LIGHTBOX ───────────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border: 1px solid rgba(61,255,0,0.2);
+      box-shadow: 0 0 60px rgba(61,255,0,0.15);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: rgba(61,255,0,0.1);
+      border: 1px solid rgba(61,255,0,0.3);
+      color: var(--green);
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover { background: rgba(61,255,0,0.25); }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .lightbox-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(61,255,0,0.08);
+      border: 1px solid rgba(61,255,0,0.2);
+      color: var(--green);
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-arrow:hover { background: rgba(61,255,0,0.2); }
+    .lightbox-arrow.prev { left: 20px; }
+    .lightbox-arrow.next { right: 20px; }
+
+    /* Make gallery items show cursor pointer */
+    .gallery-item { cursor: pointer; }
+
     /* ─── VIDEO PLAY OVERLAY ─────────────────────────────────────── */
     .video-play-overlay {
       position: absolute;
@@ -1353,6 +1754,24 @@
   </style>
 </head>
 <body>
+  <!-- ── COOKIE BANNER ─────────────────────────────────────────────── -->
+  <div id="cookieBanner">
+    <p class="cookie-text">
+      We use cookies to improve your experience on our website. By continuing to browse, you agree to our use of cookies.
+      <a href="#contact">Learn more</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+      <button class="cookie-decline" onclick="declineCookies()">Decline</button>
+    </div>
+  </div>
+
+  <!-- ── INTRO ─────────────────────────────────────────────────────── -->
+  <div id="intro">
+    <img class="intro-logo" src="SG-LOGO-TRANS" alt="StudioGraphic" />
+    <div class="intro-bar-wrap"><div class="intro-bar"></div></div>
+  </div>
+
   <canvas id="starfield" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
 
   <!-- ── NAV ─────────────────────────────────────────────────────── -->
@@ -1404,15 +1823,15 @@
       </div>
       <div class="hero-stats">
         <div class="stat-item">
-          <div class="stat-num">500+</div>
+          <div class="stat-num" data-count="500" data-suffix="+">0+</div>
           <div class="stat-label">Projects Completed</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">11+</div>
+          <div class="stat-num" data-count="11" data-suffix="+">0+</div>
           <div class="stat-label">Years Experience</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num">100%</div>
+          <div class="stat-num" data-count="100" data-suffix="%">0%</div>
           <div class="stat-label">Satisfaction Rate</div>
         </div>
       </div>
@@ -1649,7 +2068,7 @@
       <div class="step reveal" style="transition-delay:0.2s">
         <div class="step-num">03</div>
         <h3 class="step-title">Print</h3>
-        <p class="step-desc">We print on premium cast vinyl using high-resolution wide-format printers for vivid, long-lasting colour.</p>
+        <p class="step-desc">We print on premium vinyl using high-resolution wide-format printers for vivid, long-lasting colour.</p>
       </div>
       <div class="step reveal" style="transition-delay:0.3s">
         <div class="step-num">04</div>
@@ -1670,37 +2089,97 @@
     </div>
     <div class="gallery-grid">
       <div class="gallery-item reveal">
-        <img src="Projects/IMG_5853.jpeg" alt="Vehicle Wrap" />
+        <img loading="lazy" src="Projects/IMG_5853.jpeg" alt="Vehicle Wrap" />
         <div class="gallery-overlay"><span class="gallery-label">Racing Livery</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.1s">
-        <img src="Projects/IMG_5248.jpeg" alt="Signage" />
+        <img loading="lazy" src="Projects/IMG_5248.jpeg" alt="Signage" />
         <div class="gallery-overlay"><span class="gallery-label">Partial Vehicle Wrap</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.15s">
-        <img src="Projects/FullSizeRender.jpeg" alt="Shopfront Signage" />
+        <img loading="lazy" src="Projects/FullSizeRender.jpeg" alt="Shopfront Signage" />
         <div class="gallery-overlay"><span class="gallery-label">Illuminated Sign-Tray</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.2s">
-        <img src="Projects/IMG_4617.jpeg" alt="Race Car Wrap" />
+        <img loading="lazy" src="Projects/IMG_4617.jpeg" alt="Race Car Wrap" />
         <div class="gallery-overlay"><span class="gallery-label">Sign Tray With Stand-Off Letters</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.25s">
-        <img src="Projects/IMG_6350.jpeg" alt="Van Wrap" />
+        <img loading="lazy" src="Projects/IMG_6350.jpeg" alt="Van Wrap" />
         <div class="gallery-overlay"><span class="gallery-label">Sign-Writing</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.3s">
-        <img src="Projects/IMG_5482.jpeg" alt="Built-Up Signage" />
+        <img loading="lazy" src="Projects/IMG_5482.jpeg" alt="Built-Up Signage" />
         <div class="gallery-overlay"><span class="gallery-label">Sign-Tray With Stand-Off Logo</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.35s">
-        <img src="Projects/IMG_4256.jpeg" alt="Digitally Printed Partial Wrap" />
+        <img loading="lazy" src="Projects/IMG_4256.jpeg" alt="Digitally Printed Partial Wrap" />
         <div class="gallery-overlay"><span class="gallery-label">Digitally Printed Partial Wrap</span></div>
       </div>
       <div class="gallery-item reveal" style="transition-delay:0.4s">
-        <img src="Projects/IMG_2665.jpeg" alt="Full Digitally Printed Cab Wrap" />
+        <img loading="lazy" src="Projects/IMG_2665.jpeg" alt="Full Digitally Printed Cab Wrap" />
         <div class="gallery-overlay"><span class="gallery-label">Full Digitally Printed Cab Wrap</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ──────────────────────────────────────────────── -->
+  <section id="testimonials">
+    <div class="reveal">
+      <div class="section-tag">What Clients Say</div>
+      <h2 class="section-title">Don't Take Our <span class="accent">Word For It</span></h2>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Done the graphics on our vans and a pleasure to deal with and very professional. Has just done the design and full wrap on our rally car and it looks absolutely 👌👌 the amount of people that comment on it looking fantastic. Couldn't recommend them enough.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AO</div>
+          <div>
+            <div class="testimonial-name">Andrew Otto</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal" style="transition-delay:0.1s">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Been great dealing with Matty at Studio Graphic. He was very quick to respond and get some visuals sent over. Squeezed me in so I had minimal down time. High quality job and I'll definitely be recommending him to others and going back for future work.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AC</div>
+          <div>
+            <div class="testimonial-name">Adam Crellin</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal" style="transition-delay:0.2s">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Studio Graphics is the place to go if you want top quality designs and customer service. Matty messaged me back and within the same day I had a design sent over — he nailed it. So quick and top notch workmanship. I wouldn't go anywhere else. Thank you very much Matty.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">LH</div>
+          <div>
+            <div class="testimonial-name">Lee Heaney</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal" style="transition-delay:0.3s">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Absolutely fantastic job carried out by Matty at Studio Graphic on our Carlisle branch. True professional and exceeded our expectations. Highly recommended.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AM</div>
+          <div>
+            <div class="testimonial-name">Adam M</div>
+            <div class="testimonial-company">FleetWise Solutions Ltd</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1745,7 +2224,7 @@
         </div>
       </div>
 
-      <form class="contact-form reveal" style="transition-delay:0.15s" onsubmit="handleSubmit(event)">
+      <form class="contact-form reveal" style="transition-delay:0.15s" onsubmit="handleSubmit(event)" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="fname">First Name</label>
@@ -1784,13 +2263,34 @@
           <textarea id="message" placeholder="Vehicle type, quantity, design brief, deadline..."></textarea>
         </div>
         <div class="form-submit">
-          <button type="submit" class="btn-primary" style="width:100%;text-align:center;">
+          <button type="submit" class="btn-primary" style="width:100%;text-align:center;animation:none;">
             Send Enquiry
           </button>
         </div>
       </form>
     </div>
   </section>
+
+  <!-- ── FLOATING BUTTONS ──────────────────────────────────────────── -->
+  <div class="float-btns">
+    <a href="https://wa.me/447423578862" target="_blank" class="float-btn whatsapp" aria-label="WhatsApp us">
+      <span class="float-btn-label">WhatsApp</span>
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <a href="tel:07423578862" class="float-btn call" aria-label="Call us">
+      <span class="float-btn-label">Call Us</span>
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    </a>
+  </div>
+
+  <!-- ── LIGHTBOX ──────────────────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-arrow prev" id="lightboxPrev">&#8249;</button>
+    <img id="lightboxImg" src="" alt="" />
+    <button class="lightbox-arrow next" id="lightboxNext">&#8250;</button>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
   <footer>
@@ -1826,7 +2326,7 @@
     (function () {
       const canvas = document.getElementById('starfield');
       const ctx    = canvas.getContext('2d');
-      const COUNT  = 160;
+      const COUNT  = 220;
       let stars    = [];
       let W, H;
 
@@ -1839,21 +2339,19 @@
 
       function initStars() {
         stars = Array.from({ length: COUNT }, () => ({
-          x:        rand(0, W),
-          y:        rand(0, H),
-          r:        rand(0.4, 1.6),
-          baseAlpha:rand(0.08, 0.35),
-          pulseSpeed:rand(0.3, 0.9),       // pulse frequency
+          x:         rand(0, W),
+          y:         rand(0, H),
+          r:         rand(0.5, 2.4),
+          baseAlpha: rand(0.25, 0.75),
+          pulseSpeed:rand(0.4, 1.2),
           pulsePhase:rand(0, Math.PI * 2),
-          // drift
-          vx:       rand(-0.08, 0.08),     // slow horizontal drift
-          vy:       rand(-0.06, 0.06),     // slow vertical drift
-          // wander — gentle direction change over time
-          wx:       rand(0, Math.PI * 2),
-          wy:       rand(0, Math.PI * 2),
-          wsx:      rand(0.0003, 0.001),   // wander speed x
-          wsy:      rand(0.0003, 0.001),   // wander speed y
-          wanderAmt:rand(0.03, 0.12),      // how much it wanders
+          vx:        rand(-0.1, 0.1),
+          vy:        rand(-0.08, 0.08),
+          wx:        rand(0, Math.PI * 2),
+          wy:        rand(0, Math.PI * 2),
+          wsx:       rand(0.0004, 0.0014),
+          wsy:       rand(0.0004, 0.0014),
+          wanderAmt: rand(0.05, 0.18),
         }));
       }
 
@@ -1862,36 +2360,34 @@
         ctx.clearRect(0, 0, W, H);
 
         stars.forEach(s => {
-          // Drift with gentle sine wander so they curve softly
           s.x += s.vx + Math.sin(s.wx + t * s.wsx * 60) * s.wanderAmt;
           s.y += s.vy + Math.sin(s.wy + t * s.wsy * 60) * s.wanderAmt;
 
-          // Wrap around edges
           if (s.x < -2)  s.x = W + 2;
           if (s.x > W+2) s.x = -2;
           if (s.y < -2)  s.y = H + 2;
           if (s.y > H+2) s.y = -2;
 
-          // Pulse — smooth sine between dim and bright
-          const pulse = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.pulseSpeed * Math.PI * 2 + s.pulsePhase));
+          // Full range pulse — goes very bright
+          const pulse = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.pulseSpeed * Math.PI * 2 + s.pulsePhase));
           const a     = s.baseAlpha * pulse;
 
           // Core dot
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(61,255,0,${a.toFixed(3)})`;
+          ctx.fillStyle = `rgba(61,255,0,${Math.min(a, 1).toFixed(3)})`;
           ctx.fill();
 
-          // Soft glow halo on bigger/brighter stars
-          if (s.r > 1.0 && a > 0.18) {
-            const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 5);
-            grad.addColorStop(0, `rgba(61,255,0,${(a * 0.25).toFixed(3)})`);
-            grad.addColorStop(1, 'rgba(61,255,0,0)');
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r * 5, 0, Math.PI * 2);
-            ctx.fillStyle = grad;
-            ctx.fill();
-          }
+          // Large vivid glow halo on all stars
+          const glowR = s.r * 7;
+          const grad  = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowR);
+          grad.addColorStop(0, `rgba(61,255,0,${(a * 0.5).toFixed(3)})`);
+          grad.addColorStop(0.4, `rgba(61,255,0,${(a * 0.15).toFixed(3)})`);
+          grad.addColorStop(1,   'rgba(61,255,0,0)');
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, glowR, 0, Math.PI * 2);
+          ctx.fillStyle = grad;
+          ctx.fill();
         });
 
         requestAnimationFrame(draw);
@@ -1936,6 +2432,103 @@
           : '';
       });
     });
+
+    // ── Cookie banner ─────────────────────────────────────────────
+    (function () {
+      const banner = document.getElementById('cookieBanner');
+      if (localStorage.getItem('sg_cookies')) banner.classList.add('hidden');
+    })();
+
+    function acceptCookies() {
+      localStorage.setItem('sg_cookies', 'accepted');
+      document.getElementById('cookieBanner').classList.add('hidden');
+    }
+
+    function declineCookies() {
+      localStorage.setItem('sg_cookies', 'declined');
+      document.getElementById('cookieBanner').classList.add('hidden');
+    }
+
+    // ── Intro animation ───────────────────────────────────────────
+    (function () {
+      const intro = document.getElementById('intro');
+      setTimeout(() => intro.classList.add('hidden'), 2200);
+    })();
+
+    // ── Animated stat counters ────────────────────────────────────
+    (function () {
+      const counters = document.querySelectorAll('.stat-num[data-count]');
+      const duration = 1800;
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          obs.unobserve(entry.target);
+          const el     = entry.target;
+          const target = +el.dataset.count;
+          const suffix = el.dataset.suffix || '';
+          const start  = performance.now();
+
+          function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+          function update(now) {
+            const elapsed = Math.min((now - start) / duration, 1);
+            const val     = Math.round(easeOut(elapsed) * target);
+            el.textContent = val + suffix;
+            if (elapsed < 1) requestAnimationFrame(update);
+          }
+
+          requestAnimationFrame(update);
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(c => obs.observe(c));
+    })();
+
+    // ── Lightbox ──────────────────────────────────────────────────
+    (function () {
+      const lightbox  = document.getElementById('lightbox');
+      const lbImg     = document.getElementById('lightboxImg');
+      const lbCaption = document.getElementById('lightboxCaption');
+      const lbClose   = document.getElementById('lightboxClose');
+      const lbPrev    = document.getElementById('lightboxPrev');
+      const lbNext    = document.getElementById('lightboxNext');
+
+      const items = Array.from(document.querySelectorAll('.gallery-item'));
+      let current = 0;
+
+      function open(idx) {
+        current = idx;
+        const item  = items[idx];
+        const img   = item.querySelector('img');
+        const label = item.querySelector('.gallery-label');
+        lbImg.src          = img ? img.src : '';
+        lbCaption.textContent = label ? label.textContent : '';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function prev() { open((current - 1 + items.length) % items.length); }
+      function next() { open((current + 1) % items.length); }
+
+      items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+      lbClose.addEventListener('click', close);
+      lbPrev.addEventListener('click', prev);
+      lbNext.addEventListener('click', next);
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+
+      document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowLeft')  prev();
+        if (e.key === 'ArrowRight') next();
+      });
+    })();
 
     // ── Scroll-scrub video ────────────────────────────────────────
     (function () {
@@ -2005,18 +2598,42 @@
     })();
 
     // ── Form handler ──────────────────────────────────────────────
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button[type=submit]');
-      btn.textContent = 'Sent! We\'ll be in touch.';
-      btn.style.background = 'var(--green-d)';
+      const form = e.target;
+      const btn  = form.querySelector('button[type=submit]');
+
+      btn.textContent = 'Sending...';
       btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Send Enquiry';
-        btn.style.background = '';
-        btn.disabled = false;
-        e.target.reset();
-      }, 4000);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          btn.textContent = '✓ Sent! We\'ll be in touch.';
+          btn.style.background = 'var(--green-d)';
+          form.reset();
+          setTimeout(() => {
+            btn.textContent = 'Send Enquiry';
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 5000);
+        } else {
+          throw new Error('Failed');
+        }
+      } catch {
+        btn.textContent = 'Error — please call us directly';
+        btn.style.background = '#c0392b';
+        setTimeout(() => {
+          btn.textContent = 'Send Enquiry';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      }
     }
   </script>
 </body>
