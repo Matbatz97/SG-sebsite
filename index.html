@@ -2368,9 +2368,9 @@
         stars = Array.from({ length: COUNT }, () => ({
           x:         rand(0, W),
           y:         rand(0, H),
-          r:         rand(0.5, 2.4),
-          baseAlpha: rand(0.25, 0.75),
-          pulseSpeed:rand(0.4, 1.2),
+          r:         rand(0.4, 1.6),
+          baseAlpha: rand(0.1, 0.35),
+          pulseSpeed:rand(0.3, 0.9),
           pulsePhase:rand(0, Math.PI * 2),
           vx:        rand(-0.1, 0.1),
           vy:        rand(-0.08, 0.08),
@@ -2395,8 +2395,8 @@
           if (s.y < -2)  s.y = H + 2;
           if (s.y > H+2) s.y = -2;
 
-          // Full range pulse — goes very bright
-          const pulse = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * s.pulseSpeed * Math.PI * 2 + s.pulsePhase));
+          // Gentle pulse
+          const pulse = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(t * s.pulseSpeed * Math.PI * 2 + s.pulsePhase));
           const a     = s.baseAlpha * pulse;
 
           // Core dot
@@ -2405,11 +2405,11 @@
           ctx.fillStyle = `rgba(61,255,0,${Math.min(a, 1).toFixed(3)})`;
           ctx.fill();
 
-          // Large vivid glow halo on all stars
-          const glowR = s.r * 7;
+          // Soft glow halo
+          const glowR = s.r * 5;
           const grad  = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowR);
-          grad.addColorStop(0, `rgba(61,255,0,${(a * 0.5).toFixed(3)})`);
-          grad.addColorStop(0.4, `rgba(61,255,0,${(a * 0.15).toFixed(3)})`);
+          grad.addColorStop(0, `rgba(61,255,0,${(a * 0.3).toFixed(3)})`);
+          grad.addColorStop(0.4, `rgba(61,255,0,${(a * 0.08).toFixed(3)})`);
           grad.addColorStop(1,   'rgba(61,255,0,0)');
           ctx.beginPath();
           ctx.arc(s.x, s.y, glowR, 0, Math.PI * 2);
