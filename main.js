@@ -300,8 +300,8 @@
     (function () {
       const el = document.getElementById('typingAccent');
       if (!el) return;
-      if (window.innerWidth < 768) { el.textContent = 'Unmissable.'; el.classList.add('typing-done'); return; }
-      const text = 'Unmissable.';
+      if (window.innerWidth < 768) { el.textContent = 'Stand Out.'; el.classList.add('typing-done'); return; }
+      const text = 'Stand Out.';
       const typeSpeed = 80;
       const deleteSpeed = 40;
       const pauseAfterType = 2000;
