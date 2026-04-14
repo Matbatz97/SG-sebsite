@@ -36,8 +36,8 @@ const SG = {
     { src: 'Projects/IMG_4617.jpeg',       alt: 'Race Car Wrap',                  label: 'Sign Tray With Stand-Off Letters'},
     { src: 'Projects/IMG_6350.jpeg',       alt: 'Van Wrap',                       label: 'Sign-Writing'                    },
     { src: 'Projects/IMG_5482.jpeg',       alt: 'Built-Up Signage',               label: 'Sign-Tray With Stand-Off Logo'   },
-    { src: 'Projects/IMG_4256.jpeg',       alt: 'Digitally Printed Partial Wrap', label: 'Digitally Printed Partial Wrap'  },
-    { src: 'Projects/IMG_2665.jpeg',       alt: 'Full Cab Wrap',                  label: 'Full Digitally Printed Cab Wrap' },
+    { src: 'Projects/IMG_4256.jpeg', alt: 'Digitally Printed Partial Wrap', label: 'Digitally Printed Partial Wrap' },
+    { src: 'Projects/IMG_2665.jpeg', alt: 'Full Cab Wrap',                  label: 'Full Digitally Printed Cab Wrap' },
   ],
 
   // ── Testimonials ─────────────────────────────────────────────

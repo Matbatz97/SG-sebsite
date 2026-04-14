@@ -5,7 +5,8 @@
 
       // Gallery
       document.querySelectorAll('.gallery-grid').forEach(function (grid) {
-        grid.innerHTML = SG.gallery.map(function (item, i) {
+        const limit = grid.dataset.preview ? parseInt(grid.dataset.preview) : SG.gallery.length;
+        grid.innerHTML = SG.gallery.slice(0, limit).map(function (item, i) {
           const delay = i === 0 ? '' : ` style="transition-delay:${(i * 0.05).toFixed(2)}s"`;
           return `<div class="gallery-item reveal"${delay}>
             <img loading="lazy" src="${item.src}" alt="${item.alt}" />
@@ -16,7 +17,8 @@
 
       // Testimonials
       document.querySelectorAll('.testimonials-grid').forEach(function (grid) {
-        grid.innerHTML = SG.testimonials.map(function (t, i) {
+        const limit = grid.dataset.preview ? parseInt(grid.dataset.preview) : SG.testimonials.length;
+        grid.innerHTML = SG.testimonials.slice(0, limit).map(function (t, i) {
           const delay = i === 0 ? '' : ` style="transition-delay:${(i * 0.1).toFixed(1)}s"`;
           const company = t.company ? `<div class="testimonial-company">${t.company}</div>` : '';
           return `<div class="testimonial-card reveal"${delay}>
@@ -387,6 +389,52 @@
       obs.observe(document.getElementById('services'));
     })();
 
+    // ── Typing effect on Recent Projects heading ──────────────────
+    (function () {
+      const el = document.getElementById('typingProjects');
+      if (!el) return;
+      if (window.innerWidth < 768) { el.textContent = 'Projects'; el.classList.add('typing-done'); return; }
+      const text = 'Projects';
+      const typeSpeed = 90;
+      const deleteSpeed = 45;
+      const pauseAfterType = 4000;
+      const pauseAfterDelete = 300;
+      let started = false;
+
+      function typeOut() {
+        let i = 0;
+        el.classList.remove('typing-done');
+        el.textContent = '';
+        (function addChar() {
+          el.textContent = text.slice(0, ++i);
+          if (i < text.length) setTimeout(addChar, typeSpeed);
+          else { el.classList.add('typing-done'); setTimeout(deleteOut, pauseAfterType); }
+        })();
+      }
+
+      function deleteOut() {
+        let i = el.textContent.length;
+        el.classList.remove('typing-done');
+        (function removeChar() {
+          el.textContent = text.slice(0, --i);
+          if (i > 0) setTimeout(removeChar, deleteSpeed);
+          else setTimeout(typeOut, pauseAfterDelete);
+        })();
+      }
+
+      const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !started) {
+            started = true;
+            obs.disconnect();
+            typeOut();
+          }
+        });
+      }, { threshold: 0.05 });
+
+      obs.observe(document.getElementById('gallery'));
+    })();
+
     // ── Animated stat counters ────────────────────────────────────
     (function () {
       const counters = document.querySelectorAll('.stat-num[data-count]');
@@ -650,3 +698,43 @@
         }, 4000);
       }
     }
+
+    // ── Sticky CTA ────────────────────────────────────────────────
+    (function () {
+      const bar = document.getElementById('stickyCta');
+      if (!bar) return;
+      let shown = false;
+      window.addEventListener('scroll', function () {
+        const past = window.scrollY > (window.innerHeight * 0.6);
+        if (past && !shown) { bar.classList.add('visible'); shown = true; }
+        else if (!past && shown) { bar.classList.remove('visible'); shown = false; }
+      }, { passive: true });
+    })();
+
+    // ── CTA video — click to play ─────────────────────────────────
+    (function () {
+      const video   = document.getElementById('ctaVideo');
+      const overlay = document.getElementById('ctaVideoOverlay');
+      if (!video || !overlay) return;
+
+      overlay.addEventListener('click', function () {
+        video.play();
+        overlay.classList.add('hidden');
+      });
+
+      video.addEventListener('ended', function () {
+        overlay.classList.remove('hidden');
+      });
+    })();
+
+    // ── FAQ Accordion ─────────────────────────────────────────────
+    (function () {
+      document.querySelectorAll('.faq-item').forEach(function (item) {
+        item.addEventListener('click', function () {
+          const isOpen = item.classList.contains('open');
+          document.querySelectorAll('.faq-item.open').forEach(function (o) { o.classList.remove('open'); });
+          if (!isOpen) item.classList.add('open');
+        });
+      });
+    })();
+
