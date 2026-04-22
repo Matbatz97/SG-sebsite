@@ -112,7 +112,6 @@
       }
 
       function drawNebula(t) {
-        // Two slow-drifting radial glows
         const ox = Math.sin(t * 0.04) * W * 0.12;
         const oy = Math.cos(t * 0.03) * H * 0.1;
         const g1 = ctx.createRadialGradient(W*0.3+ox, H*0.4+oy, 0, W*0.3+ox, H*0.4+oy, W*0.35);
@@ -151,7 +150,7 @@
         }
       }
 
-      function drawShoots(dt) {
+      function drawShoots(_dt) {
         shoots = shoots.filter(s => s.alpha > 0.02);
         shoots.forEach(s => {
           s.trail += s.speed;
@@ -192,13 +191,11 @@
           const pulse = 0.5 + 0.5 * (0.5 + 0.5 * Math.sin(t * s.pulseSpeed * Math.PI * 2 + s.pulsePhase));
           const a     = s.baseAlpha * pulse;
 
-          // Core dot
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(61,255,0,${Math.min(a, 1).toFixed(3)})`;
           ctx.fill();
 
-          // Soft glow halo
           const glowR = s.r * 5;
           const grad  = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowR);
           grad.addColorStop(0,   `rgba(61,255,0,${(a * 0.35).toFixed(3)})`);
@@ -210,7 +207,6 @@
           ctx.fill();
         });
 
-        // Shooting stars — random interval 3-8s
         if (t - lastShoot > rand(3, 8)) {
           spawnShoot();
           lastShoot = t;
@@ -480,7 +476,6 @@
       if (window.innerWidth < 768) { el.innerHTML = `Don't Take Our <span class="accent">Word For It</span>`; return; }
       const fullText   = "Don't Take Our Word For It";
       const plainPart  = "Don't Take Our ";
-      const accentPart = "Word For It";
       const typeSpeed  = 60;
       const deleteSpeed = 35;
       const pauseAfterType = 2000;
@@ -551,7 +546,6 @@
     (function () {
       const lightbox  = document.getElementById('lightbox');
       const lbImg     = document.getElementById('lightboxImg');
-      const lbCaption = document.getElementById('lightboxCaption');
       const lbClose   = document.getElementById('lightboxClose');
       const lbPrev    = document.getElementById('lightboxPrev');
       const lbNext    = document.getElementById('lightboxNext');
@@ -563,9 +557,7 @@
         current = idx;
         const item  = items[idx];
         const img   = item.querySelector('img');
-        const label = item.querySelector('.gallery-label');
         lbImg.src          = img ? img.src : '';
-        lbCaption.textContent = label ? label.textContent : '';
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
@@ -709,6 +701,24 @@
         if (past && !shown) { bar.classList.add('visible'); shown = true; }
         else if (!past && shown) { bar.classList.remove('visible'); shown = false; }
       }, { passive: true });
+    })();
+
+    // ── Gallery 3D tilt ──────────────────────────────────────────
+    (function () {
+      if (window.innerWidth < 768) return;
+      document.querySelectorAll('.gallery-item').forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width  - 0.5;
+          const y = (e.clientY - rect.top)  / rect.height - 0.5;
+          card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale(1.02)`;
+          card.style.transition = 'border-color 0.4s, box-shadow 0.4s, transform 0.08s ease';
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.transform = '';
+          card.style.transition = 'border-color 0.4s, box-shadow 0.4s, transform 0.5s ease';
+        });
+      });
     })();
 
     // ── CTA video — click to play ─────────────────────────────────
