@@ -672,6 +672,13 @@
           btn.textContent = '✓ Sent! We\'ll be in touch.';
           btn.style.background = 'var(--green-d)';
           form.reset();
+          // Reset upload preview UI
+          const zone = form.querySelector('.upload-drop-area');
+          const previewList = form.querySelector('#uploadPreviewList');
+          const uploadText = form.querySelector('#uploadText');
+          if (zone) zone.classList.remove('has-files');
+          if (previewList) { previewList.innerHTML = ''; previewList.style.display = 'none'; }
+          if (uploadText) uploadText.style.display = 'block';
           setTimeout(() => {
             btn.textContent = 'Send Enquiry';
             btn.style.background = '';
