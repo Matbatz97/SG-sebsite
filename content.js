@@ -30,6 +30,8 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_6914.jpeg',       alt: 'Precision Men\'s Hair 3D raised interior gloss black signage by StudioGraphic', label: 'Precision Men\'s Hair 3D Signage'        },
+    { src: 'Projects/IMG_6999.jpeg',       alt: 'Primrose Cleaning Company printed van wrap by StudioGraphic', label: 'Primrose Cleaning Van Wrap'           },
     { src: 'Projects/IMG_5853.jpeg',       alt: 'Vehicle Wrap',                   label: 'Racing Livery'                   },
     { src: 'Projects/IMG_5248.jpeg',       alt: 'Signage',                        label: 'Partial Vehicle Wrap'            },
     { src: 'Projects/FullSizeRender.jpeg', alt: 'Shopfront Signage',              label: 'Illuminated Sign-Tray'           },
