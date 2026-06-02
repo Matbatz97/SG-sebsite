@@ -8,8 +8,8 @@ const SG = {
   // ── Business Info ────────────────────────────────────────────
   // Update phone/email/address here and it changes everywhere.
   business: {
-    phone:        '07423578862',
-    phoneDisplay: '07423 578 862',
+    phone:        '01228472486',
+    phoneDisplay: '01228 472486',
     email:        'info@studiographic.co.uk',
     address:      'Unit 2 Tyne Street Business Park, CA1 2GY',
     whatsapp:     '447423578862',
