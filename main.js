@@ -671,6 +671,9 @@
         if (res.ok) {
           btn.textContent = '✓ Sent! We\'ll be in touch.';
           btn.style.background = 'var(--green-d)';
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversion', { send_to: 'AW-11411411417' });
+          }
           form.reset();
           // Reset upload preview UI
           const zone = form.querySelector('.upload-drop-area');
