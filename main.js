@@ -66,6 +66,8 @@
 
     // ── Starfield ─────────────────────────────────────────────────
     (function () {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('gclid') || params.get('utm_source') === 'google') return;
       const canvas = document.getElementById('starfield');
       const ctx    = canvas.getContext('2d');
       const COUNT  = 180;
@@ -275,7 +277,15 @@
     // ── Intro animation ───────────────────────────────────────────
     (function () {
       const intro = document.getElementById('intro');
-      setTimeout(() => intro.classList.add('hidden'), 2200);
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('gclid') || params.get('utm_source') === 'google') {
+        intro.style.transition = 'none';
+        intro.style.display = 'none';
+        const canvas = document.getElementById('starfield');
+        if (canvas) canvas.style.display = 'none';
+      } else {
+        setTimeout(() => intro.classList.add('hidden'), 2200);
+      }
     })();
 
     // ── Active nav highlight ──────────────────────────────────────
