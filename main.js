@@ -5,14 +5,44 @@
 
       // Gallery
       document.querySelectorAll('.gallery-grid').forEach(function (grid) {
-        const limit = grid.dataset.preview ? parseInt(grid.dataset.preview) : SG.gallery.length;
-        grid.innerHTML = SG.gallery.slice(0, limit).map(function (item, i) {
-          const delay = i === 0 ? '' : ` style="transition-delay:${(i * 0.05).toFixed(2)}s"`;
-          return `<div class="gallery-item reveal"${delay}>
-            <img loading="lazy" src="${item.src}" alt="${item.alt}" />
-            <div class="gallery-overlay"><span class="gallery-label">${item.label}</span></div>
-          </div>`;
-        }).join('');
+        const isPreview = !!grid.dataset.preview;
+        const limit = isPreview ? parseInt(grid.dataset.preview) : SG.gallery.length;
+
+        function renderGallery(filterCategory) {
+          let items = SG.gallery;
+          if (filterCategory && filterCategory !== 'all') {
+            items = SG.gallery.filter(function (item) {
+              return item.category === filterCategory;
+            });
+          }
+          const displayItems = isPreview ? items.slice(0, limit) : items;
+
+          grid.innerHTML = displayItems.map(function (item, i) {
+            const delay = ` style="animation-delay:${(i * 0.05).toFixed(2)}s; opacity:0;"`;
+            return `<div class="gallery-item reveal in-view"${delay} data-category="${item.category || ''}">
+              <img loading="lazy" src="${item.src}" alt="${item.alt}" />
+              <div class="gallery-overlay"><span class="gallery-label">${item.label}</span></div>
+            </div>`;
+          }).join('');
+
+          if (typeof window.initGalleryTilt === 'function') {
+            window.initGalleryTilt();
+          }
+        }
+
+        renderGallery('all');
+
+        const filterContainer = document.querySelector('.gallery-filters');
+        if (filterContainer) {
+          const buttons = filterContainer.querySelectorAll('.filter-btn');
+          buttons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              buttons.forEach(function (b) { b.classList.remove('active'); });
+              btn.classList.add('active');
+              renderGallery(btn.dataset.filter);
+            });
+          });
+        }
       });
 
       // Testimonials
@@ -534,23 +564,7 @@
     })();
 
     // ── Gallery staggered reveal ──────────────────────────────────
-    (function () {
-      const items = document.querySelectorAll('.gallery-item');
-      items.forEach(item => { item.style.opacity = '0'; });
-
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          obs.unobserve(entry.target);
-          const item  = entry.target;
-          const index = Array.from(items).indexOf(item);
-          item.style.animationDelay = `${index * 0.08}s`;
-          item.classList.add('in-view');
-        });
-      }, { threshold: 0.1 });
-
-      items.forEach(item => obs.observe(item));
-    })();
+    // Handled dynamically on render inside main.js gallery logic
 
     // ── Lightbox ──────────────────────────────────────────────────
     (function () {
@@ -560,14 +574,19 @@
       const lbPrev    = document.getElementById('lightboxPrev');
       const lbNext    = document.getElementById('lightboxNext');
 
-      const items = Array.from(document.querySelectorAll('.gallery-item'));
       let current = 0;
 
+      function getVisibleItems() {
+        return Array.from(document.querySelectorAll('.gallery-item'));
+      }
+
       function open(idx) {
+        const visibleItems = getVisibleItems();
+        if (idx < 0 || idx >= visibleItems.length) return;
         current = idx;
-        const item  = items[idx];
+        const item  = visibleItems[idx];
         const img   = item.querySelector('img');
-        lbImg.src          = img ? img.src : '';
+        lbImg.src   = img ? img.src : '';
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
@@ -577,10 +596,27 @@
         document.body.style.overflow = '';
       }
 
-      function prev() { open((current - 1 + items.length) % items.length); }
-      function next() { open((current + 1) % items.length); }
+      function prev() { 
+        const visibleItems = getVisibleItems();
+        open((current - 1 + visibleItems.length) % visibleItems.length); 
+      }
+      function next() { 
+        const visibleItems = getVisibleItems();
+        open((current + 1) % visibleItems.length); 
+      }
 
-      items.forEach((item, i) => item.addEventListener('click', () => open(i)));
+      // Event delegation for dynamically rendered gallery items
+      document.addEventListener('click', function (e) {
+        const item = e.target.closest('.gallery-item');
+        if (!item) return;
+        
+        const visibleItems = getVisibleItems();
+        const idx = visibleItems.indexOf(item);
+        if (idx !== -1) {
+          open(idx);
+        }
+      });
+
       lbClose.addEventListener('click', close);
       lbPrev.addEventListener('click', prev);
       lbNext.addEventListener('click', next);
@@ -724,9 +760,13 @@
     })();
 
     // ── Gallery 3D tilt ──────────────────────────────────────────
-    (function () {
+    window.initGalleryTilt = function () {
       if (window.innerWidth < 768) return;
       document.querySelectorAll('.gallery-item').forEach(function (card) {
+        // Prevent duplicate listeners
+        if (card.dataset.tiltActive) return;
+        card.dataset.tiltActive = 'true';
+        
         card.addEventListener('mousemove', function (e) {
           const rect = card.getBoundingClientRect();
           const x = (e.clientX - rect.left) / rect.width  - 0.5;
@@ -739,7 +779,8 @@
           card.style.transition = 'border-color 0.4s, box-shadow 0.4s, transform 0.5s ease';
         });
       });
-    })();
+    };
+    window.initGalleryTilt();
 
     // ── CTA video — click to play ─────────────────────────────────
     (function () {
