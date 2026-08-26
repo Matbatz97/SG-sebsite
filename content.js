@@ -30,6 +30,9 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_7874.jpeg',       alt: 'Limitless Fitness Combat & Fitness custom red and black taxi van wrap by StudioGraphic', label: 'Limitless Fitness Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_7739.jpeg',       alt: 'OBT Van Sales custom Union Jack bonnet wrap and door graphics by StudioGraphic', label: 'OBT Van Sales Truck Graphics', category: 'vehicle' },
+    { src: 'Projects/IMG_7737.jpeg',       alt: 'Sooty n\' Sweepz chimney sweeping and stove fitting services printed van wrap by StudioGraphic', label: 'Sooty n\' Sweepz Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_7581.jpeg',       alt: 'Dream Clean Exterior Property Care printed vehicle wrap by StudioGraphic', label: 'Dream Clean Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_7443.jpeg',       alt: 'Barbie x Rightmove custom pink Volkswagen truck wrap by StudioGraphic', label: 'Barbie x Rightmove Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_7082.jpeg',       alt: 'Ty Bell Welding & Steel Fabrications Volkswagen van wrap by StudioGraphic', label: 'Ty Bell Welding Van Wrap', category: 'vehicle' },
