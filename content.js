@@ -30,6 +30,8 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_7840.jpeg',       alt: 'RG Civil Engineering and Surveying Ltd grey van graphics and rear chevrons by StudioGraphic', label: 'RG Civil Engineering Van Wrap', category: 'vehicle' },
+    { src: 'Projects/PHOTO-2026-03-16-16-14-22.jpg', alt: 'Advanced Scaffolding printed advertising banner on scaffolding by StudioGraphic', label: 'Advanced Scaffolding Banner', category: 'signage' },
     { src: 'Projects/IMG_7874.jpeg',       alt: 'Limitless Fitness Combat & Fitness custom red and black taxi van wrap by StudioGraphic', label: 'Limitless Fitness Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_7739.jpeg',       alt: 'OBT Van Sales custom Union Jack bonnet wrap and door graphics by StudioGraphic', label: 'OBT Van Sales Truck Graphics', category: 'vehicle' },
     { src: 'Projects/IMG_7737.jpeg',       alt: 'Sooty n\' Sweepz chimney sweeping and stove fitting services printed van wrap by StudioGraphic', label: 'Sooty n\' Sweepz Van Wrap', category: 'vehicle' },
