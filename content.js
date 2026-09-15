@@ -30,6 +30,8 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_8118.jpeg',       alt: 'Be-Cool Air Conditioning & Refrigeration Carlisle Ltd geometric blue van wrap by StudioGraphic', label: 'Be-Cool Air Conditioning Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_8089.jpeg',       alt: 'All Clear Window Cleaning Cumbria Ltd custom Ford Transit van wrap by StudioGraphic', label: 'All Clear Window Cleaning Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_7655.jpeg',       alt: 'Radio Taxis Carlisle exterior building signage and promotional fascia boards by StudioGraphic', label: 'Radio Taxis Carlisle Signage', category: 'signage' },
     { src: 'Projects/IMG_8158.jpeg',       alt: 'Stratus Electrical Group printed pull-up roller banners and exhibition displays by StudioGraphic', label: 'Stratus Electrical Roller Banners', category: 'signage' },
     { src: 'Projects/IMG_7840.jpeg',       alt: 'RG Civil Engineering and Surveying Ltd grey van graphics and rear chevrons by StudioGraphic', label: 'RG Civil Engineering Van Wrap', category: 'vehicle' },
