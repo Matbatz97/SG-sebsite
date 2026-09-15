@@ -697,6 +697,59 @@
       });
     })();
 
+    // ── Universal Lead Conversion Tracker ────────────────────────
+    function trackLeadConversion(action, label) {
+      // 1. Google Ads Conversion Tag
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          send_to: 'AW-11411411417',
+          event_category: 'lead_engagement',
+          event_label: label || action
+        });
+      }
+      // 2. Google Tag Manager dataLayer push
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'lead_conversion',
+        conversion_type: action,
+        conversion_label: label || action,
+        timestamp: new Date().toISOString()
+      });
+    }
+    window.trackLeadConversion = trackLeadConversion;
+
+    // Global listener for WhatsApp and Phone click tracking
+    document.addEventListener('click', function (e) {
+      const wa = e.target.closest('a[href*="wa.me"]');
+      if (wa) {
+        const s = wa.getAttribute('data-service') || 'whatsapp_inquiry';
+        trackLeadConversion('whatsapp_click', s);
+        return;
+      }
+      const tel = e.target.closest('a[href^="tel:"]');
+      if (tel) {
+        trackLeadConversion('phone_call_click', tel.getAttribute('href') || '01228472486');
+        return;
+      }
+    });
+
+    // Auto-select service in dropdown if ?service= query param is provided
+    (function () {
+      const serviceParam = new URLSearchParams(window.location.search).get('service');
+      if (serviceParam) {
+        const serviceSelect = document.getElementById('service') || document.querySelector('select[name="Service Required"]');
+        if (serviceSelect) {
+          const q = serviceParam.toLowerCase().replace(/[\+_-]/g, ' ');
+          for (let opt of serviceSelect.options) {
+            if (opt.value && (opt.value.toLowerCase().includes(q) || q.includes(opt.value.toLowerCase()))) {
+              opt.selected = true;
+              break;
+            }
+          }
+        }
+      }
+    })();
+
     // ── Form handler ──────────────────────────────────────────────
     async function handleSubmit(e) {
       e.preventDefault();
@@ -717,11 +770,9 @@
         if (res.ok) {
           btn.textContent = '✓ Sent! We\'ll be in touch.';
           btn.style.background = 'var(--green-d)';
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'conversion', { send_to: 'AW-11411411417' });
-          }
+          trackLeadConversion('form_submission', data['Service Required'] || 'contact_form');
           form.reset();
-          // Reset upload preview UI
+          // Reset upload preview UI if present
           const zone = form.querySelector('.upload-drop-area');
           const previewList = form.querySelector('#uploadPreviewList');
           const uploadText = form.querySelector('#uploadText');

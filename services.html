@@ -12,6 +12,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services — StudioGraphic | Vehicle Wraps & Signage Carlisle</title>
   <meta name="description" content="Vehicle wraps Carlisle &amp; van graphics Cumbria — sign writing, signage, banners, window graphics &amp; build-up letters. StudioGraphic, CA1 2GY." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "AutoBodyShop"],
+    "name": "StudioGraphic",
+    "image": "https://www.studiographic.co.uk/Projects/IMG_7840.jpeg",
+    "logo": "https://www.studiographic.co.uk/SG-LOGO-TRANS.png",
+    "@id": "https://www.studiographic.co.uk/#business",
+    "url": "https://www.studiographic.co.uk/services.html",
+    "telephone": "+441228472486",
+    "email": "info@studiographic.co.uk",
+    "priceRange": "££",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Unit 2 Tyne Street Business Park",
+      "addressLocality": "Carlisle",
+      "addressRegion": "Cumbria",
+      "postalCode": "CA1 2GY",
+      "addressCountry": "GB"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 54.8910,
+      "longitude": -2.9250
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Carlisle" },
+      { "@type": "AdministrativeArea", "name": "Cumbria" },
+      { "@type": "City", "name": "Penrith" },
+      { "@type": "City", "name": "Workington" },
+      { "@type": "City", "name": "Whitehaven" },
+      { "@type": "City", "name": "Dumfries" }
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#3dff00" />
   <link rel="icon" type="image/png" href="SG-LOGO-TRANS.png" />
   <link rel="apple-touch-icon" href="SG-LOGO-TRANS.png" />
@@ -70,6 +105,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       grid-column: 2;
       grid-row: 2;
     }
+    #services .service-actions {
+      grid-column: 2;
+      grid-row: 3;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    #services .service-actions .service-link {
+      margin-top: 0;
+      grid-column: auto;
+      grid-row: auto;
+    }
     #services .service-link {
       font-size: 0.7rem;
       margin-top: 10px;
@@ -78,9 +126,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       grid-column: 2;
       grid-row: 3;
     }
+    #services .service-wa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #25D366;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    #services .service-wa-link:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
     @media (max-width: 600px) {
       #services .services-grid { grid-template-columns: 1fr; }
       #services .service-card  { grid-template-columns: auto 1fr; }
+      #services .service-actions { flex-wrap: wrap; gap: 12px; }
     }
   </style>
   <!-- Google tag (gtag.js) -->
@@ -169,34 +234,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section id="services" style="padding-top:0;">
     <div class="services-grid">
 
-      <div class="service-card reveal">
+      <div class="service-card reveal" id="commercial-wraps">
         <div class="service-number">01</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
         </div>
         <h3 class="service-name">Printed Vehicle Wraps</h3>
         <p class="service-desc">Full and partial digitally printed vehicle wraps complete with clear over-laminate. Stand out from the crowd and turn your van or fleet into a high-impact moving billboard.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Printed+Vehicle+Wraps" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20a%20commercial%20vehicle%20wrap." target="_blank" class="service-wa-link" data-service="Commercial Vehicle Wraps">WhatsApp Quote</a>
+        </div>
       </div>
 
-      <div class="service-card reveal" style="transition-delay:0.07s">
+      <div class="service-card reveal" style="transition-delay:0.07s" id="sign-writing">
         <div class="service-number">02</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
         </div>
         <h3 class="service-name">Sign Writing</h3>
         <p class="service-desc">Cut vinyl lettering and graphics applied directly to vehicles, shopfronts and boards. Clean, professional, long-lasting.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Sign+Writing" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20van%20signwriting." target="_blank" class="service-wa-link" data-service="Van Signwriting">WhatsApp Quote</a>
+        </div>
       </div>
 
-      <div class="service-card reveal" style="transition-delay:0.14s">
+      <div class="service-card reveal" style="transition-delay:0.14s" id="window-graphics">
         <div class="service-number">03</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         </div>
         <h3 class="service-name">Window Graphics</h3>
         <p class="service-desc">Frosted, perforated and full-colour window films for shopfronts, offices and vehicles. Privacy, branding and style combined.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Window+Graphics" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20window%20graphics." target="_blank" class="service-wa-link" data-service="Window Graphics">WhatsApp Quote</a>
+        </div>
       </div>
 
       <div class="service-card reveal" style="transition-delay:0.21s">
@@ -206,10 +280,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <h3 class="service-name">CO2 Laser Cutting &amp; Engraving</h3>
         <p class="service-desc">Precision laser cutting and engraving on acrylic, wood and more. Perfect for bespoke signage, plaques, awards and branded components.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Laser+Cutting" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20laser%20cutting%20signage." target="_blank" class="service-wa-link" data-service="Laser Cutting">WhatsApp Quote</a>
+        </div>
       </div>
 
-      <div class="service-card reveal" style="transition-delay:0.28s">
+      <div class="service-card reveal" style="transition-delay:0.28s" id="build-up-letters">
         <div class="service-number">05</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="var(--green)">
@@ -221,17 +298,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <h3 class="service-name">Build-Up Letters</h3>
         <p class="service-desc">3D fabricated lettering in aluminium, acrylic or foam — illuminated or non-lit. Make your brand name stand out physically from the wall.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Build-Up+Letters" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%203D%20build-up%20letters." target="_blank" class="service-wa-link" data-service="Build-Up Letters">WhatsApp Quote</a>
+        </div>
       </div>
 
-      <div class="service-card reveal" style="transition-delay:0.35s">
+      <div class="service-card reveal" style="transition-delay:0.35s" id="fascia-signs">
         <div class="service-number">06</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
         </div>
         <h3 class="service-name">Illuminated Sign Trays</h3>
         <p class="service-desc">Backlit and face-lit illuminated sign trays for shopfronts and commercial premises. Maximum visibility day and night — built to last.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Sign+Trays" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20a%20shopfront%20fascia%20sign%20tray." target="_blank" class="service-wa-link" data-service="Fascia Sign Trays">WhatsApp Quote</a>
+        </div>
       </div>
 
       <div class="service-card reveal" style="transition-delay:0.42s">
@@ -274,14 +357,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
       </div>
 
-      <div class="service-card reveal" style="transition-delay:0.70s">
+      <div class="service-card reveal" style="transition-delay:0.70s" id="banners">
         <div class="service-number">11</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 10h14v2H5zm0 4h8v2H5z"/></svg>
         </div>
         <h3 class="service-name">Scaffold Banners</h3>
         <p class="service-desc">Single sided or double-sided for scaffold banners, hoardings and fencing. Wind-resistant, weather-proof and printed in full colour — maximum exposure on site.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Banners" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20scaffold%20%2F%20site%20banners." target="_blank" class="service-wa-link" data-service="Commercial Banners">WhatsApp Quote</a>
+        </div>
       </div>
 
       <div class="service-card reveal" style="transition-delay:0.84s">
@@ -296,14 +382,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
       </div>
 
-      <div class="service-card reveal" style="transition-delay:0.91s">
+      <div class="service-card reveal" style="transition-delay:0.91s" id="roller-banners">
         <div class="service-number">13</div>
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zm-2-2H5v-2h14v2zm0-4H5v-6h14v6z"/></svg>
         </div>
         <h3 class="service-name">Pop Up Banners</h3>
         <p class="service-desc">Pull-up roller banners for exhibitions, trade shows and retail displays. Compact, portable and printed to a high resolution — a professional impression wherever you go.</p>
-        <a href="contact.html" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <div class="service-actions">
+          <a href="contact.html?service=Pop+Up+Banners" class="service-link">Enquire <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+          <a href="https://wa.me/447423578862?text=Hi%20Matty%2C%20I%27d%20like%20a%20quote%20for%20pop%20up%20roller%20banners." target="_blank" class="service-wa-link" data-service="Pop Up Banners">WhatsApp Quote</a>
+        </div>
       </div>
 
       <div class="service-card reveal" style="transition-delay:0.98s">

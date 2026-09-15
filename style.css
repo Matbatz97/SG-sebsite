@@ -2065,6 +2065,152 @@
       .sticky-cta .btn-primary { font-size: 0.8rem; padding: 10px 18px; }
     }
 
+    /* ─── COMMERCIAL CLIENT TRUST SECTION ────────────────────────── */
+    .commercial-trust-section {
+      background: linear-gradient(180deg, rgba(14,14,14,0.95) 0%, rgba(6,6,6,0.98) 100%);
+      border-top: 1px solid rgba(61,255,0,0.18);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 44px 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+    .commercial-trust-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 70%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(61,255,0,0.6), transparent);
+    }
+    .commercial-trust-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .commercial-trust-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .commercial-trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(61,255,0,0.08);
+      border: 1px solid rgba(61,255,0,0.3);
+      padding: 5px 14px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+    .commercial-trust-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    .commercial-trust-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .client-tags-marquee-wrap {
+      overflow: hidden;
+      margin: 20px 0 28px;
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+      mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+    }
+    .client-tags-marquee {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: max-content;
+      animation: clientScroll 24s linear infinite;
+    }
+    .client-tags-marquee:hover {
+      animation-play-state: paused;
+    }
+    @keyframes clientScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .client-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      padding: 10px 18px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #f0f0f0;
+      white-space: nowrap;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    }
+    .client-tag:hover {
+      border-color: rgba(61,255,0,0.5);
+      background: rgba(61,255,0,0.06);
+      transform: translateY(-2px);
+    }
+    .client-tag .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px rgba(61,255,0,0.8);
+    }
+    .commercial-perks {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .commercial-perk {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+    }
+    .commercial-perk .perk-icon {
+      color: var(--green);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    @media (max-width: 900px) {
+      .commercial-perks {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+    @media (max-width: 540px) {
+      .commercial-perks {
+        grid-template-columns: 1fr;
+      }
+      .commercial-trust-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
     /* ─── SUPPLIER TRUST STRIP ──────────────────────────────────── */
     .trust-strip {
       padding: 28px 0;
