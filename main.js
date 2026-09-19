@@ -45,22 +45,54 @@
         }
       });
 
-      // Testimonials
-      document.querySelectorAll('.testimonials-grid').forEach(function (grid) {
-        const limit = grid.dataset.preview ? parseInt(grid.dataset.preview) : SG.testimonials.length;
-        grid.innerHTML = SG.testimonials.slice(0, limit).map(function (t, i) {
-          const delay = i === 0 ? '' : ` style="transition-delay:${(i * 0.1).toFixed(1)}s"`;
+      // Testimonials Continuous Marquee Ticker (Moves like homepage ticker)
+      document.querySelectorAll('.testimonials-marquee-track, .testimonials-slider').forEach(function (track) {
+        function renderCard(t, i) {
           const company = t.company ? `<div class="testimonial-company">${t.company}</div>` : '';
-          return `<div class="testimonial-card reveal"${delay}>
-            <div class="testimonial-stars">★★★★★</div>
-            <div class="testimonial-quote">"</div>
-            <p class="testimonial-text">${t.text}</p>
+          const dateTag = t.date ? `<span class="testimonial-meta-dot">•</span><span class="testimonial-date">${t.date}</span>` : '';
+          const cleanText = (t.text || '').replace(/^["“]|["”]$/g, '').trim();
+          return `<div class="testimonial-card" data-index="${i}">
+            <div class="testimonial-meta">
+              <div class="testimonial-stars"><svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align:-1px;margin-right:5px;flex-shrink:0;" aria-hidden="true"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>★★★★★</div>${dateTag}
+            </div>
+            <p class="testimonial-text">“${cleanText}”</p>
             <div class="testimonial-author">
               <div class="testimonial-avatar">${t.initials}</div>
               <div><div class="testimonial-name">${t.name}</div>${company}</div>
             </div>
           </div>`;
-        }).join('');
+        }
+
+        const cards = SG.testimonials.map(renderCard).join('');
+        // Duplicate cards so marquee loops infinitely with zero seams
+        track.innerHTML = cards + cards;
+
+        const section = track.closest('#testimonials');
+        if (!section) return;
+
+        // Mobile touch pause: holding finger pauses movement to read comfortably
+        track.addEventListener('touchstart', function () {
+          track.style.animationPlayState = 'paused';
+        }, { passive: true });
+
+        track.addEventListener('touchend', function () {
+          track.style.animationPlayState = 'running';
+        }, { passive: true });
+
+        // Performance: pause animation when testimonials section is scrolled out of view
+        if ('IntersectionObserver' in window) {
+          const obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              track.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+            });
+          }, { threshold: 0.05 });
+          obs.observe(section);
+        }
+
+        // Pause animation when browser tab is inactive
+        document.addEventListener('visibilitychange', function () {
+          track.style.animationPlayState = document.hidden ? 'paused' : 'running';
+        });
       });
 
       // Stats
@@ -338,8 +370,8 @@
     (function () {
       const el = document.getElementById('typingAccent');
       if (!el) return;
-      if (window.innerWidth < 768) { el.textContent = 'Stand Out.'; el.classList.add('typing-done'); return; }
-      const text = 'Stand Out.';
+      if (window.innerWidth < 768) { el.textContent = 'Unmissable.'; el.classList.add('typing-done'); return; }
+      const text = 'Unmissable.';
       const typeSpeed = 80;
       const deleteSpeed = 40;
       const pauseAfterType = 2000;
@@ -859,4 +891,18 @@
         });
       });
     })();
+
+    // ── Background Video Autoplay Safety ──────────────────────────
+    (function () {
+      const vids = document.querySelectorAll('#bgVideo, .hero-bg-video');
+      if (vids.length) {
+        const startPlay = function () {
+          vids.forEach(function (v) { v.play().catch(function () {}); });
+        };
+        startPlay();
+        document.addEventListener('touchstart', startPlay, { once: true, passive: true });
+        document.addEventListener('click', startPlay, { once: true });
+      }
+    })();
+
 
