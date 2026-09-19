@@ -127,39 +127,53 @@
     })();
 
     // ── Starfield ─────────────────────────────────────────────────
+    // ── Background Starfield & Constellation Animation ───────────────
     (function () {
       const params = new URLSearchParams(window.location.search);
       if (params.get('gclid') || params.get('utm_source') === 'google') return;
       const canvas = document.getElementById('starfield');
+      if (!canvas) return;
       const ctx    = canvas.getContext('2d');
-      const COUNT  = 180;
-      const CONNECT_DIST = 120;
       let stars  = [];
       let shoots = [];
       let W, H;
+      let isMobile = false;
+      let count = 180;
+      let connectDist = 120;
+      let lineAlphaFactor = 0.12;
 
       function resize() {
         W = canvas.width  = window.innerWidth;
         H = canvas.height = window.innerHeight;
+        isMobile = W < 768;
+        // On mobile, keep the geometric network airy, subtle and non-distracting
+        count = isMobile ? 48 : 170;
+        connectDist = isMobile ? 75 : 120;
+        lineAlphaFactor = isMobile ? 0.05 : 0.12;
       }
 
       function rand(min, max) { return Math.random() * (max - min) + min; }
 
       function initStars() {
-        stars = Array.from({ length: COUNT }, () => ({
+        const minR = isMobile ? 0.3 : 0.4;
+        const maxR = isMobile ? 1.2 : 1.8;
+        const minAlpha = isMobile ? 0.07 : 0.12;
+        const maxAlpha = isMobile ? 0.22 : 0.40;
+
+        stars = Array.from({ length: count }, () => ({
           x:         rand(0, W),
           y:         rand(0, H),
-          r:         rand(0.4, 1.8),
-          baseAlpha: rand(0.12, 0.4),
-          pulseSpeed:rand(0.3, 1.0),
+          r:         rand(minR, maxR),
+          baseAlpha: rand(minAlpha, maxAlpha),
+          pulseSpeed:rand(0.25, 0.9),
           pulsePhase:rand(0, Math.PI * 2),
-          vx:        rand(-0.08, 0.08),
-          vy:        rand(-0.06, 0.06),
+          vx:        rand(isMobile ? -0.05 : -0.08, isMobile ? 0.05 : 0.08),
+          vy:        rand(isMobile ? -0.04 : -0.06, isMobile ? 0.04 : 0.06),
           wx:        rand(0, Math.PI * 2),
           wy:        rand(0, Math.PI * 2),
           wsx:       rand(0.0003, 0.0012),
           wsy:       rand(0.0003, 0.0012),
-          wanderAmt: rand(0.04, 0.15),
+          wanderAmt: rand(isMobile ? 0.02 : 0.04, isMobile ? 0.08 : 0.15),
         }));
       }
 
@@ -167,20 +181,22 @@
         shoots.push({
           x:     rand(0, W),
           y:     rand(0, H * 0.5),
-          len:   rand(80, 180),
-          speed: rand(6, 14),
+          len:   rand(isMobile ? 50 : 80, isMobile ? 110 : 180),
+          speed: rand(isMobile ? 4 : 6, isMobile ? 9 : 14),
           angle: rand(Math.PI * 0.1, Math.PI * 0.35),
-          alpha: 1,
+          alpha: isMobile ? 0.45 : 1,
           trail: 0,
         });
       }
 
       function drawNebula(t) {
+        const nebAlpha1 = isMobile ? 0.018 : 0.04;
+        const nebAlpha2 = isMobile ? 0.014 : 0.035;
         const ox = Math.sin(t * 0.04) * W * 0.12;
         const oy = Math.cos(t * 0.03) * H * 0.1;
         const g1 = ctx.createRadialGradient(W*0.3+ox, H*0.4+oy, 0, W*0.3+ox, H*0.4+oy, W*0.35);
-        g1.addColorStop(0,   'rgba(61,255,0,0.04)');
-        g1.addColorStop(0.5, 'rgba(61,255,0,0.015)');
+        g1.addColorStop(0,   `rgba(61,255,0,${nebAlpha1})`);
+        g1.addColorStop(0.5, `rgba(61,255,0,${(nebAlpha1 * 0.38).toFixed(4)})`);
         g1.addColorStop(1,   'rgba(61,255,0,0)');
         ctx.fillStyle = g1;
         ctx.fillRect(0, 0, W, H);
@@ -188,8 +204,8 @@
         const ox2 = Math.sin(t * 0.05 + 2) * W * 0.1;
         const oy2 = Math.cos(t * 0.04 + 1) * H * 0.12;
         const g2  = ctx.createRadialGradient(W*0.75+ox2, H*0.6+oy2, 0, W*0.75+ox2, H*0.6+oy2, W*0.28);
-        g2.addColorStop(0,   'rgba(61,255,0,0.035)');
-        g2.addColorStop(0.5, 'rgba(61,255,0,0.01)');
+        g2.addColorStop(0,   `rgba(61,255,0,${nebAlpha2})`);
+        g2.addColorStop(0.5, `rgba(61,255,0,${(nebAlpha2 * 0.3).toFixed(4)})`);
         g2.addColorStop(1,   'rgba(61,255,0,0)');
         ctx.fillStyle = g2;
         ctx.fillRect(0, 0, W, H);
@@ -201,13 +217,13 @@
             const dx   = stars[i].x - stars[j].x;
             const dy   = stars[i].y - stars[j].y;
             const dist = Math.sqrt(dx*dx + dy*dy);
-            if (dist < CONNECT_DIST) {
-              const a = (1 - dist / CONNECT_DIST) * 0.12;
+            if (dist < connectDist) {
+              const a = (1 - dist / connectDist) * lineAlphaFactor;
               ctx.beginPath();
               ctx.moveTo(stars[i].x, stars[i].y);
               ctx.lineTo(stars[j].x, stars[j].y);
               ctx.strokeStyle = `rgba(61,255,0,${a.toFixed(3)})`;
-              ctx.lineWidth = 0.5;
+              ctx.lineWidth = isMobile ? 0.35 : 0.5;
               ctx.stroke();
             }
           }
@@ -231,7 +247,7 @@
           ctx.moveTo(sx, sy);
           ctx.lineTo(ex, ey);
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = isMobile ? 0.9 : 1.5;
           ctx.stroke();
         });
       }
@@ -260,10 +276,11 @@
           ctx.fillStyle = `rgba(61,255,0,${Math.min(a, 1).toFixed(3)})`;
           ctx.fill();
 
-          const glowR = s.r * 5;
+          const glowMultiplier = isMobile ? 2.5 : 5;
+          const glowR = s.r * glowMultiplier;
           const grad  = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowR);
-          grad.addColorStop(0,   `rgba(61,255,0,${(a * 0.35).toFixed(3)})`);
-          grad.addColorStop(0.4, `rgba(61,255,0,${(a * 0.1).toFixed(3)})`);
+          grad.addColorStop(0,   `rgba(61,255,0,${(a * (isMobile ? 0.2 : 0.35)).toFixed(3)})`);
+          grad.addColorStop(0.4, `rgba(61,255,0,${(a * (isMobile ? 0.05 : 0.1)).toFixed(3)})`);
           grad.addColorStop(1,   'rgba(61,255,0,0)');
           ctx.beginPath();
           ctx.arc(s.x, s.y, glowR, 0, Math.PI * 2);
@@ -271,7 +288,7 @@
           ctx.fill();
         });
 
-        if (t - lastShoot > rand(3, 8)) {
+        if (t - lastShoot > rand(isMobile ? 8 : 3, isMobile ? 18 : 8)) {
           spawnShoot();
           lastShoot = t;
         }

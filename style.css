@@ -1494,6 +1494,8 @@
 
       /* Hero */
       .hero-visual { display: none; }
+      #starfield { opacity: 0.65; }
+      .hero-bg::before { opacity: 0.45; }
       #hero { padding-top: 88px; padding-bottom: 60px; min-height: auto; }
       .hero-title { font-size: clamp(2.4rem, 10vw, 4rem); }
       .hero-sub { font-size: 0.95rem; line-height: 1.6; }
