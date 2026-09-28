@@ -30,6 +30,13 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_8301.jpeg',       alt: 'Cumbria Access + Engineering (CAE) commercial Mercedes Sprinter full van wrap by StudioGraphic', label: 'CAE Mercedes Sprinter Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_8283.jpeg',       alt: 'West Walls Brewing custom black window graphics by StudioGraphic', label: 'West Walls Brewing Window Graphics', category: 'signage' },
+    { src: 'Projects/IMG_8205.jpeg',       alt: 'Richardson Plumbing Heating & Gas custom Ford Transit van wrap by StudioGraphic', label: 'Richardson Plumbing Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_6297.jpeg',       alt: 'The Clubhouse Bar & Restaurant Stonyholme Golf Course exterior building signage by StudioGraphic', label: 'The Clubhouse Exterior Signage', category: 'signage' },
+    { src: 'Projects/IMG_8284.jpeg',       alt: 'West Walls Brewing orange promotional window vinyl display by StudioGraphic', label: 'West Walls Brewing Promo Graphics', category: 'signage' },
+    { src: 'Projects/IMG_8281.jpeg',       alt: 'West Walls Brewing door manifestations and logo vinyl by StudioGraphic', label: 'West Walls Brewing Door Manifestation', category: 'signage' },
+    { src: 'Projects/IMG_4240.jpeg',       alt: 'JS Technical Solutions custom commercial van wrap by StudioGraphic', label: 'JS Technical Solutions Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8118.jpeg',       alt: 'Be-Cool Air Conditioning & Refrigeration Carlisle Ltd geometric blue van wrap by StudioGraphic', label: 'Be-Cool Air Conditioning Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8089.jpeg',       alt: 'All Clear Window Cleaning Cumbria Ltd custom Ford Transit van wrap by StudioGraphic', label: 'All Clear Window Cleaning Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_7655.jpeg',       alt: 'Radio Taxis Carlisle exterior building signage and promotional fascia boards by StudioGraphic', label: 'Radio Taxis Carlisle Signage', category: 'signage' },
