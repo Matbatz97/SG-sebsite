@@ -31,6 +31,7 @@ const SG = {
   // Order here = order on the website.
   gallery: [
     { src: 'Projects/IMG_8301.jpeg',       alt: 'Cumbria Access + Engineering (CAE) commercial Mercedes Sprinter full van wrap by StudioGraphic', label: 'CAE Mercedes Sprinter Van Wrap', category: 'vehicle' },
+    { src: 'Projects/att.FgLFMEyV8inoHEtnc8qcgAU2qj3R_HzmiJGLeM9gaJA.JPG', alt: 'Kettle Kulture custom illuminated LED neon signage and gym branding by StudioGraphic', label: 'Kettle Kulture LED Neon Sign', category: 'signage' },
     { src: 'Projects/IMG_8205.jpeg',       alt: 'Richardson Plumbing Heating & Gas custom Ford Transit van wrap by StudioGraphic', label: 'Richardson Plumbing Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8118.jpeg',       alt: 'Be-Cool Air Conditioning & Refrigeration Carlisle Ltd geometric blue van wrap by StudioGraphic', label: 'Be-Cool Air Conditioning Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8089.jpeg',       alt: 'All Clear Window Cleaning Cumbria Ltd custom Ford Transit van wrap by StudioGraphic', label: 'All Clear Window Cleaning Van Wrap', category: 'vehicle' },
