@@ -636,12 +636,19 @@
         const item  = visibleItems[idx];
         const img   = item.querySelector('img');
         lbImg.src   = img ? img.src : '';
+        const lbCaption = document.getElementById('lightboxCaption');
+        if (lbCaption) {
+          const label = item.querySelector('.gallery-label');
+          lbCaption.textContent = label ? label.textContent : (img ? (img.alt || '') : '');
+        }
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
 
       function close() {
         lightbox.classList.remove('open');
+        const lbCaption = document.getElementById('lightboxCaption');
+        if (lbCaption) lbCaption.textContent = '';
         document.body.style.overflow = '';
       }
 
