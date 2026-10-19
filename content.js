@@ -30,6 +30,9 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_8405.jpeg',       alt: 'CJP Roofing & Plastering Volkswagen Crafter commercial van wrap and vehicle graphics by StudioGraphic', label: 'CJP Roofing & Plastering Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_8441.jpeg',       alt: 'CNN Motor Trading Ltd custom post and panel outdoor commercial signage by StudioGraphic', label: 'CNN Motor Trading Commercial Signage', category: 'signage' },
+    { src: 'Projects/IMG_8436.jpeg',       alt: 'CNN Motor Trading Ltd custom printed feather flag banners and forecourt branding by StudioGraphic', label: 'CNN Motor Trading Feather Flags', category: 'signage' },
     { src: 'Projects/IMG_8387.jpeg',       alt: 'JB Nutrition Scania truck commercial cab graphics and vehicle branding by StudioGraphic', label: 'JB Nutrition Scania Truck Livery', category: 'vehicle' },
     { src: 'Projects/IMG_8301.jpeg',       alt: 'Cumbria Access + Engineering (CAE) commercial Mercedes Sprinter full van wrap by StudioGraphic', label: 'CAE Mercedes Sprinter Van Wrap', category: 'vehicle' },
     { src: 'Projects/att.FgLFMEyV8inoHEtnc8qcgAU2qj3R_HzmiJGLeM9gaJA.JPG', alt: 'Kettle Kulture custom illuminated LED neon signage and gym branding by StudioGraphic', label: 'Kettle Kulture LED Neon Sign', category: 'signage' },
