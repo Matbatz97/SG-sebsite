@@ -30,6 +30,8 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/pheasant-inn.jpeg',           alt: 'The Pheasant Inn Cumwhitton Citroen Berlingo printed van wrap with pheasant and autumn leaf design by StudioGraphic', label: 'The Pheasant Inn Van Wrap', category: 'vehicle' },
+    { src: 'Projects/north-cumbria-flooring.jpeg', alt: 'North Cumbria Flooring large panel van wrap and sign writing with carpet, vinyl and LVT graphics by StudioGraphic', label: 'North Cumbria Flooring Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8405.jpeg',       alt: 'CJP Roofing & Plastering Volkswagen Crafter commercial van wrap and vehicle graphics by StudioGraphic', label: 'CJP Roofing & Plastering Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8441.jpeg',       alt: 'CNN Motor Trading Ltd custom post and panel outdoor commercial signage by StudioGraphic', label: 'CNN Motor Trading Commercial Signage', category: 'signage' },
     { src: 'Projects/IMG_8436.jpeg',       alt: 'CNN Motor Trading Ltd custom printed feather flag banners and forecourt branding by StudioGraphic', label: 'CNN Motor Trading Feather Flags', category: 'signage' },
