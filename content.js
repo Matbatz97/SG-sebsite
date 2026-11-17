@@ -30,6 +30,9 @@ const SG = {
   // To remove a photo: delete its entry.
   // Order here = order on the website.
   gallery: [
+    { src: 'Projects/IMG_8738.jpeg',               alt: 'GE Garden Services Cumbria Ford Transit Connect van wrap and tree graphics by StudioGraphic', label: 'GE Garden Services Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_8762.jpg',                alt: 'Rewired Cumbria Ltd Solar, Battery Storage & Electrical commercial van wrap and graphics by StudioGraphic', label: 'Rewired Cumbria Van Wrap', category: 'vehicle' },
+    { src: 'Projects/IMG_8794.jpeg',               alt: 'Mally Douglas Paving & Civils Contractors custom printed box trailer wrap by StudioGraphic', label: 'Mally Douglas Trailer Wrap', category: 'vehicle' },
     { src: 'Projects/pheasant-inn.jpeg',           alt: 'The Pheasant Inn Cumwhitton Citroen Berlingo printed van wrap with pheasant and autumn leaf design by StudioGraphic', label: 'The Pheasant Inn Van Wrap', category: 'vehicle' },
     { src: 'Projects/north-cumbria-flooring.jpeg', alt: 'North Cumbria Flooring large panel van wrap and sign writing with carpet, vinyl and LVT graphics by StudioGraphic', label: 'North Cumbria Flooring Van Wrap', category: 'vehicle' },
     { src: 'Projects/IMG_8405.jpeg',       alt: 'CJP Roofing & Plastering Volkswagen Crafter commercial van wrap and vehicle graphics by StudioGraphic', label: 'CJP Roofing & Plastering Van Wrap', category: 'vehicle' },
